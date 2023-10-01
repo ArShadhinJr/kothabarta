@@ -93,7 +93,7 @@ const Registration = () => {
     <div className="flex w-full h-screen">
         <div className="h-full lg:w-1/2 lg:flex items-center lg:pr-[69px] w-full grid">
           <div className="lg:w-[497px] w-4/5 mx-auto lg:mx-0 px-2 lg:ms-auto lg:text-start text-center ">
-                  <div className='block lg:hidden'>
+                  <div className='block lg:hidden mb-5'>
                     <img src={logo} />
                   </div>
                   <h1 className='lg:text-3xl text-2xl  text-tertiary font-nunito font-bold mb-3'>Get started with easily register</h1>
