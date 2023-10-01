@@ -2,7 +2,7 @@ import { useState } from 'react'
 import registration from '../../assets/images/registration.png'
 import { PiEyeLight, PiEyeClosedLight } from 'react-icons/pi'
 import logo from '../../assets/images/logo.png'
-import { Link, Outlet } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Registration = () => {
 
@@ -82,6 +82,8 @@ const Registration = () => {
     if ( !password ) {
       setPasswordErr( "Password is required" )
     }
+
+    console.log(email, fullName , password )
 
     // if ( email && fullName && password ) {
     //   setEmail( "" )
@@ -165,9 +167,9 @@ const Registration = () => {
                       {
                       passwordErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded lg:text-base md:text-sm text-xs lg:w-[368px] w-full">{passwordErr}</p> : null
                       }
-                  <div className="lg:w-[368px] w-full  lg:mt-16 md:mt-12 sm:mt-10 mt-8">
+                  <div className="lg:w-[368px] w-full  lg:mt-10  sm:mt-8 mt-6">
                       <button type="submit" onClick={handleSubmit} className="bg-primary text-white w-full lg:py-[20px] md:py-[17px] sm:py-[15px] py-[12px] rounded-full lg:text-xl md:text-lg text-md">Sign up</button>
-                      <p className='text-center lg:mt-12 md:mt-10 sm:mt-8 mt-6 text-tertiary lg:text-base text-sm'>Already have an account? <Link to='/' className="text-orange-600 font-bold">Sign in</Link></p> 
+                      <p className='text-center lg:mt-8 md:mt-6 sm:mt-6 mt-4 text-tertiary lg:text-base text-sm'>Already have an account? <Link to='/' className="text-orange-600 font-bold">Sign in</Link></p> 
                   </div>
                   </form>
             </div>
