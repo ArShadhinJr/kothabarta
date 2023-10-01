@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import registration from '../../assets/images/registration.png'
-import { PiEyeLight , PiEyeClosedLight} from 'react-icons/pi'
+import { PiEyeLight, PiEyeClosedLight } from 'react-icons/pi'
+import logo from '../../assets/images/logo.png'
 
 const Registration = () => {
 
@@ -20,7 +21,6 @@ const Registration = () => {
     } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test( e.target.value ) ) {
       setEmailErr( "Email is invalid" )
       setEmail( e.target.value )
-
     } else {
       setEmailErr( " " )
       setEmail( e.target.value )
@@ -36,7 +36,6 @@ const Registration = () => {
     }
   }
 
- 
 
   const handlePasswordErr = ( e ) => {
     if( e.target.value === " " ) {
@@ -92,61 +91,68 @@ const Registration = () => {
 
   return (
     <div className="flex w-full h-screen">
-        <div className="h-screen w-1/2 flex items-center pr-[69px]">
-          <div className="w-[497px] ms-auto">
-                  <h1 className='text-3xl text-tertiary font-nunito font-bold mb-3'>Get started with easily register</h1>
-                  <p className="text-secondary text-xl">Sign up to get started with kothabarta</p>
+        <div className="h-full lg:w-1/2 lg:flex items-center lg:pr-[69px] w-full grid">
+          <div className="lg:w-[497px] w-4/5 mx-auto lg:mx-0 px-2 lg:ms-auto lg:text-start text-center ">
+                  <div className='block lg:hidden'>
+                    <img src={logo} />
+                  </div>
+                  <h1 className='lg:text-3xl text-2xl  text-tertiary font-nunito font-bold mb-3'>Get started with easily register</h1>
+                  <p className="text-secondary text-xm">Sign up to get started with kothabarta</p>
 
-                  <form action="#"  className="mt-12">
-                    <div className="relative z-10 w-[368px] mt-12 group">
+                  <form action="#"  className="lg:mt-12 md:mt-10 sm:mt-8 mt-6 ">
+                  <div className="relative z-10 lg:w-[368px] w-full lg:mt-12 md:mt-10 sm:mt-8 mt-6 group">
                     <input
                       type="email"
                       id="email"
                       value={email}
                       onChange={handleEmailErr}
-                      className="block px-[52px] py-[26px] w-full text-xl text-primary bg-transparent border border-[#b8b9ce] focus:outline-none focus:ring-0 focus:border-primary rounded-lg appearance-none peer"
+                      className="block lg:px-[52px] md:px-[40px] sm:px-[30px] px-[22px] lg:py-[26px] md:py-[20px] sm:py-[16px] py-[10px] w-full lg:text-xl md:text-lg text-md text-primary bg-transparent border border-[#b8b9ce] focus:outline-none focus:ring-0 focus:border-primary rounded-lg appearance-none peer"
                       placeholder=" " 
                       required  
                       />
-                      
-                      
 
                     <label
                       htmlFor="email"
-                      className=" peer-focus:text-xl absolute text-xl text-secondary duration-300 transform  -translate-y-10  scale-75 top-6 left-8 z-10 bg-white px-5 origin-[0] peer-focus:left-8  peer-placeholder-shown:-z-10 peer-placeholder-shown:left-8  peer-placeholder-shown:scale-100  peer-placeholder-shown:translate-y-0 peer-focus:scale-75  peer-focus:z-10 peer-focus:bg-white  peer-focus:text-primary peer-focus:px-5  peer-focus:-translate-y-10"
+                      className=" peer-focus:lg:text-xl md:text-lg text-md absolute text-secondary duration-300 transform  -translate-y-10  scale-75 top-6 left-8 z-10 bg-white px-5 origin-[0] peer-focus:left-8  peer-placeholder-shown:-z-10 peer-placeholder-shown:left-8  peer-placeholder-shown:scale-100  lg:peer-placeholder-shown:translate-y-0
+              md:peer-placeholder-shown:-translate-y-1
+              sm:peer-placeholder-shown:-translate-y-2
+              peer-placeholder-shown:-translate-y-3 peer-focus:scale-75  peer-focus:z-10 peer-focus:bg-white  peer-focus:text-primary peer-focus:px-5  peer-focus:-translate-y-10"
                       >Email address</label>
                       
                       {
-                      emailErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded">{emailErr}</p> : null 
+                      emailErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded lg:text-base md:text-sm text-xs">{emailErr}</p> : null 
                       }
                   </div>
-                  <div className="relative z-10 w-[368px] mt-8 group">
+                  <div className="relative z-10 lg:w-[368px] w-full lg:mt-12 md:mt-10 sm:mt-8 mt-6 group">
                     <input
                       type="text"
                       id="fullName"
                       value={fullName}
                       onChange={handleFullNameErr}
-                      className="block px-[52px] py-[26px] w-full text-xl text-primary bg-transparent border border-[#b8b9ce] focus:outline-none focus:ring-0 focus:border-primary rounded-lg appearance-none peer"
+                      className="block lg:px-[52px] md:px-[40px] sm:px-[30px] px-[22px] lg:py-[26px] md:py-[20px] sm:py-[16px] py-[10px] w-full lg:text-xl md:text-lg text-md text-primary bg-transparent border border-[#b8b9ce] focus:outline-none focus:ring-0 focus:border-primary rounded-lg appearance-none peer"
                       placeholder=" "
                       required
                     />
 
                     <label
                       htmlFor="fullName"
-                      className=" peer-focus:text-xl absolute text-xl text-secondary duration-300 transform  -translate-y-10  scale-75 top-6 left-8 z-10 bg-white px-5 origin-[0] peer-focus:left-8  peer-placeholder-shown:-z-10 peer-placeholder-shown:left-8  peer-placeholder-shown:scale-100  peer-placeholder-shown:translate-y-0 peer-focus:scale-75  peer-focus:z-10 peer-focus:bg-white  peer-focus:text-primary peer-focus:px-5  peer-focus:-translate-y-10"
+                      className=" peer-focus:lg:text-xl md:text-lg text-md absolute  text-secondary duration-300 transform  -translate-y-10  scale-75 top-6 left-8 z-10 bg-white px-5 origin-[0] peer-focus:left-8  peer-placeholder-shown:-z-10 peer-placeholder-shown:left-8  peer-placeholder-shown:scale-100  lg:peer-placeholder-shown:translate-y-0
+              md:peer-placeholder-shown:-translate-y-1
+              sm:peer-placeholder-shown:-translate-y-2
+              peer-placeholder-shown:-translate-y-3 peer-focus:scale-75  peer-focus:z-10 peer-focus:bg-white  peer-focus:text-primary peer-focus:px-5  peer-focus:-translate-y-10"
                       >Full Name</label>
                       
                       {
-                      fullNameErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded">{fullNameErr}</p> : null
+                      fullNameErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded lg:text-base md:text-sm text-xs">{fullNameErr}</p> : null
                       }
                   </div>
-                  <div className="input w-[368px] relative mt-14">
-                      <input value={password} onChange={handlePasswordErr} type={showPassword ? "text" : "password"} className="border border-[#b8b9ce] w-[368px] px-[52px] py-[26px] focus:outline-none rounded-lg text-primary text-xl" placeholder="**********" required/>
+                  <div className="input lg:w-[368px] w-full relative lg:mt-12 md:mt-10 sm:mt-8 mt-6">
+                      <input value={password} onChange={handlePasswordErr} type={showPassword ? "text" : "password"} className="border border-[#b8b9ce] lg:w-[368px] w-full lg:px-[52px] md:px-[40px] sm:px-[30px] px-[22px] lg:py-[26px] md:py-[20px] sm:py-[16px] py-[10px] focus:outline-none rounded-lg text-primary lg:text-xl md:text-lg text-md" placeholder="**********" required/>
                       <span className="absolute top-0 left-12 -translate-y-3 bg-white px-[10px] text-[#9699ce] ">Password</span>
                       
                       
                       
-                      <p className="absolute right-4 top-1/2 transform -translate-y-1/2 text-xl">
+                      <p className="absolute right-4 top-1/2 transform -translate-y-1/2 lg:text-xl md:text-lg text-md">
                         {
                         showPassword ? <i onClick={()=>setShowPassword(false)} ><PiEyeLight/></i> : <i onClick={()=>setShowPassword(true)}><PiEyeClosedLight/></i>
                         }
@@ -154,17 +160,17 @@ const Registration = () => {
                       
                   </div>
                       {
-                      passwordErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded w-[368px]">{passwordErr}</p> : null
+                      passwordErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded lg:text-base md:text-sm text-xs lg:w-[368px] w-full">{passwordErr}</p> : null
                       }
-                  <div className="w-[368px] mt-16">
-                      <button type="submit" onClick={handleSubmit} className="bg-primary text-white w-full py-[20px] rounded-full text-xl">Sign up</button>
-                      <p className='text-center mt-9 text-tertiary'>Already have an account? <a href='#' className="text-orange-600 font-bold">Sign in</a></p>
+                  <div className="lg:w-[368px] w-full  lg:mt-16 md:mt-12 sm:mt-10 mt-8">
+                      <button type="submit" onClick={handleSubmit} className="bg-primary text-white w-full lg:py-[20px] md:py-[17px] sm:py-[15px] py-[12px] rounded-full lg:text-xl md:text-lg text-md">Sign up</button>
+                      <p className='text-center lg:mt-12 md:mt-10 sm:mt-8 mt-6 text-tertiary lg:text-base text-sm'>Already have an account? <a href='#' className="text-orange-600 font-bold">Sign in</a></p>
                   </div>
                   </form>
             </div>
               
         </div>
-        <div className="h-screen w-1/2">
+        <div className="h-screen lg:w-1/2 lg:block hidden">
             <img src={registration} alt="kothabarta reg image" className="h-screen w-full object-cover"/>
         </div>
     </div>
