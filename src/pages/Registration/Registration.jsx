@@ -2,6 +2,7 @@ import { useState } from 'react'
 import registration from '../../assets/images/registration.png'
 import { PiEyeLight, PiEyeClosedLight } from 'react-icons/pi'
 import logo from '../../assets/images/logo.png'
+import { Link, Outlet } from 'react-router-dom'
 
 const Registration = () => {
 
@@ -70,9 +71,11 @@ const Registration = () => {
 
   const handleSubmit = ( e ) => {
     e.preventDefault() 
+
     if ( !email ) {
-      setEmailErr( "Email is required" )
-    } 
+      setEmail ("Email is required")
+    }
+
     if ( !fullName ) {
       setFullNameErr( "Full name is required" )
     } 
@@ -80,12 +83,12 @@ const Registration = () => {
       setPasswordErr( "Password is required" )
     }
 
-    if ( email && fullName && password ) {
-      setEmail( "" )
-      setFullName( "" )
-      setPassword( "" )
-      alert( "Registration successful" )
-    }
+    // if ( email && fullName && password ) {
+    //   setEmail( "" )
+    //   setFullName( "" )
+    //   setPassword( "" )
+    //   alert( "Registration successful" )
+    // }
   }
 
 
@@ -114,9 +117,9 @@ const Registration = () => {
                     <label
                       htmlFor="email"
                       className=" peer-focus:lg:text-xl md:text-lg text-md absolute text-secondary duration-300 transform  -translate-y-10  scale-75 top-6 left-8 z-10 bg-white px-5 origin-[0] peer-focus:left-8  peer-placeholder-shown:-z-10 peer-placeholder-shown:left-8  peer-placeholder-shown:scale-100  lg:peer-placeholder-shown:translate-y-0
-              md:peer-placeholder-shown:-translate-y-1
-              sm:peer-placeholder-shown:-translate-y-2
-              peer-placeholder-shown:-translate-y-3 peer-focus:scale-75  peer-focus:z-10 peer-focus:bg-white  peer-focus:text-primary peer-focus:px-5  peer-focus:-translate-y-10"
+                      md:peer-placeholder-shown:-translate-y-1
+                      sm:peer-placeholder-shown:-translate-y-2
+                      peer-placeholder-shown:-translate-y-3 peer-focus:scale-75  peer-focus:z-10 peer-focus:bg-white  peer-focus:text-primary peer-focus:px-5  peer-focus:-translate-y-10"
                       >Email address</label>
                       
                       {
@@ -137,9 +140,9 @@ const Registration = () => {
                     <label
                       htmlFor="fullName"
                       className=" peer-focus:lg:text-xl md:text-lg text-md absolute  text-secondary duration-300 transform  -translate-y-10  scale-75 top-6 left-8 z-10 bg-white px-5 origin-[0] peer-focus:left-8  peer-placeholder-shown:-z-10 peer-placeholder-shown:left-8  peer-placeholder-shown:scale-100  lg:peer-placeholder-shown:translate-y-0
-              md:peer-placeholder-shown:-translate-y-1
-              sm:peer-placeholder-shown:-translate-y-2
-              peer-placeholder-shown:-translate-y-3 peer-focus:scale-75  peer-focus:z-10 peer-focus:bg-white  peer-focus:text-primary peer-focus:px-5  peer-focus:-translate-y-10"
+                      md:peer-placeholder-shown:-translate-y-1
+                      sm:peer-placeholder-shown:-translate-y-2
+                      peer-placeholder-shown:-translate-y-3 peer-focus:scale-75  peer-focus:z-10 peer-focus:bg-white  peer-focus:text-primary peer-focus:px-5  peer-focus:-translate-y-10"
                       >Full Name</label>
                       
                       {
@@ -164,7 +167,7 @@ const Registration = () => {
                       }
                   <div className="lg:w-[368px] w-full  lg:mt-16 md:mt-12 sm:mt-10 mt-8">
                       <button type="submit" onClick={handleSubmit} className="bg-primary text-white w-full lg:py-[20px] md:py-[17px] sm:py-[15px] py-[12px] rounded-full lg:text-xl md:text-lg text-md">Sign up</button>
-                      <p className='text-center lg:mt-12 md:mt-10 sm:mt-8 mt-6 text-tertiary lg:text-base text-sm'>Already have an account? <a href='#' className="text-orange-600 font-bold">Sign in</a></p>
+                      <p className='text-center lg:mt-12 md:mt-10 sm:mt-8 mt-6 text-tertiary lg:text-base text-sm'>Already have an account? <Link to='/' className="text-orange-600 font-bold">Sign in</Link></p> 
                   </div>
                   </form>
             </div>
