@@ -1,10 +1,14 @@
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth"
 import { useState } from 'react'
-import registration from '../../assets/images/registration.png'
-import { PiEyeLight, PiEyeClosedLight } from 'react-icons/pi'
+import { PiEyeClosedLight, PiEyeLight } from 'react-icons/pi'
+import { Link, useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
 import logo from '../../assets/images/logo.png'
-import { Link } from 'react-router-dom'
+import registration from '../../assets/images/registration.png'
 
 const Registration = () => {
+  const navigate = useNavigate();
+  const auth = getAuth(); 
 
   const [ email, setEmail ] = useState( '' )
   const [ fullName, setFullName ] = useState( '' )
@@ -19,7 +23,7 @@ const Registration = () => {
   const handleEmailErr = ( e ) => {
     if( e.target.value === "" ) {
       setEmailErr( "Email is required" )
-    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test( e.target.value ) ) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( e.target.value ) ) {
       setEmailErr( "Email is invalid" )
       setEmail( e.target.value )
     } else {
@@ -73,7 +77,7 @@ const Registration = () => {
     e.preventDefault() 
 
     if ( !email ) {
-      setEmail ("Email is required")
+      setEmailErr ("Email is required")
     }
 
     if ( !fullName ) {
@@ -82,22 +86,53 @@ const Registration = () => {
     if ( !password ) {
       setPasswordErr( "Password is required" )
     }
+    
+    let reset = () => {
+      setEmail( "" )
+      setFullName( "" )
+      setPassword( "" )
+    }
 
-    console.log(email, fullName , password )
+    
 
-    // if ( email && fullName && password ) {
-    //   setEmail( "" )
-    //   setFullName( "" )
-    //   setPassword( "" )
-    //   alert( "Registration successful" )
-    // }
+    if (  fullName &&  (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( email )) && (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,14}$/.test( password ))  ) {
+          createUserWithEmailAndPassword(auth, email, password)
+            .then(() => {
+              sendEmailVerification( auth.currentUser )
+              .then ( () => {
+                reset()
+                toast.success( "Check your email for verification" )
+                setTimeout(() => {
+                  navigate("/")
+                }, 3000)
+              })
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              console.log( errorCode )
+              if ( errorCode === "auth/email-already-in-use" ) {
+                setEmailErr( "Email already in use" )
+              }
+            });
+    }
   }
-
 
   return (
     <div className="flex w-full h-screen">
         <div className="h-full lg:w-1/2 lg:flex items-center lg:pr-[69px] w-full grid">
-          <div className="lg:w-[497px] w-4/5 mx-auto lg:mx-0 px-2 lg:ms-auto lg:text-start text-center ">
+        <div className="lg:w-[497px] w-4/5 mx-auto lg:mx-0 px-2 lg:ms-auto lg:text-start text-center ">
+          <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={true}
+          draggable={true}
+          pauseOnHover
+          theme="light"
+          />
                   <div className='block lg:hidden mb-5'>
                     <img src={logo} />
                   </div>

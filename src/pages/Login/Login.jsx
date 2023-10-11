@@ -1,11 +1,15 @@
 import login from '../../assets/images/login.jpg'
 import google from '../../assets/images/google.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/logo.png'
 import { useState } from 'react'
 import { PiEyeLight, PiEyeClosedLight } from 'react-icons/pi'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { ToastContainer, toast } from 'react-toastify'
 
 const Login = () => {
+  const navigate = useNavigate();
+  const auth = getAuth();
   const [ showPassword, setShowPassword ] = useState( false )
   
   const [ email, setEmail ] = useState( "" )
@@ -30,24 +34,6 @@ const Login = () => {
   const handlePassword = ( e ) => {
     if ( e.target.value === " " ) {
       setPasswordErr( "Password is requierd" )
-    } else if (/^(?=.*[A-Z]).*$/.test( e.target.value ) === false) {
-      setPasswordErr( "Password must contain at least one uppercase" )
-      setPassword( e.target.value )
-    } else if (/^(?=.*[a-z]).*$/.test( e.target.value ) === false) {
-      setPasswordErr( "Password must contain at least one lowercase" )
-      setPassword( e.target.value )
-    } else if (/^(?=.*[0-9]).*$/.test(e.target.value) === false) {
-      setPasswordErr( "Password must contain at least one number" )
-      setPassword( e.target.value )
-    } else if ( /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_]).*$/.test( e.target.value ) === false ) {
-      setPasswordErr( "Password must contain at least one special character" )
-      setPassword( e.target.value )
-    } else if ( /^.{8,14}$/.test( e.target.value ) === false ) {
-      setPasswordErr( "Password must be between 8 and 14 characters" )
-      setPassword( e.target.value )
-    } else if ( ( /^(?!.* ).*$/.test( e.target.value ) === false ) ) {
-      setPasswordErr( "Password must not contain spaces" )
-      setPassword( e.target.value )
     } else {
       setPasswordErr( "" )
       setPassword( e.target.value )
@@ -64,6 +50,24 @@ const Login = () => {
       setPasswordErr("Password is requierd")
     }
 
+    signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      toast.success( "Login successfully" );
+      setTimeout(() => {
+        navigate ( "/home")
+      }, 3000 )
+      setEmail( "" )
+      setPassword( "" )
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      if(errorCode === "auth/invalid-login-credentials"){
+        setEmailErr( "Check your email and password" )
+        setPasswordErr( "Check your email and password" )
+      }
+      
+  });
+
   }
 
   return (
@@ -75,7 +79,19 @@ const Login = () => {
           </div>
                   <h1 className='text-3xl text-tertiary font-nunito font-bold mb-8'>Login to your account!</h1>
                   
-                  <button className='flex items-center font-semibold latter-spacing-[.267px] border border-[#b8b9ce]  rounded-lg px-5 py-2 lg:text-base text-sm'><img src={google} className='mr-2'/>Login with Google</button>
+          <button className='flex items-center font-semibold latter-spacing-[.267px] border border-[#b8b9ce]  rounded-lg px-5 py-2 lg:text-base text-sm'><img src={google} className='mr-2' />Login with Google</button>
+          <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={true}
+          draggable={true}
+          pauseOnHover
+          theme="light"
+          />
                   
                   <form action="">
                     <div className="relative z-0 lg:w-[368px] w-full lg:mt-16 md:mt-10 sm:mt-8 mt-6 group">
@@ -126,6 +142,7 @@ const Login = () => {
                   </div>
                   
                   <div className='lg:w-[368px] w-full'>
+                      <p className='text-start mt-3'><Link to='/forgotPassword' className="text-orange-600 font-bold">Forgot Password</Link></p>
                       {
                       passwordErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded lg:text-base md:text-sm text-xs">{passwordErr}</p> : null 
                       }
