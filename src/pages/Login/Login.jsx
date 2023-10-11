@@ -4,12 +4,15 @@ import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/logo.png'
 import { useState } from 'react'
 import { PiEyeLight, PiEyeClosedLight } from 'react-icons/pi'
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword , GoogleAuthProvider, signInWithPopup , FacebookAuthProvider } from "firebase/auth";
 import { ToastContainer, toast } from 'react-toastify'
+import {BsFacebook} from 'react-icons/bs'
 
 const Login = () => {
   const navigate = useNavigate();
   const auth = getAuth();
+  const providerGoogle = new GoogleAuthProvider();
+  const providerFacebook = new FacebookAuthProvider();
   const [ showPassword, setShowPassword ] = useState( false )
   
   const [ email, setEmail ] = useState( "" )
@@ -70,16 +73,48 @@ const Login = () => {
 
   }
 
+  const handleGoogle = () => {
+    signInWithPopup(auth, providerGoogle)
+  .then(() => {
+    setTimeout(() => {
+      navigate ( "/home")
+    }, 3000 )
+    toast.success( "Login successfully" );
+  }).catch((error) => {
+    const errorCode = error.code;
+    console.log(errorCode)
+  });
+  }
+
+  const handleFacebook = () => {
+    signInWithPopup(auth, providerFacebook)
+  .then(() => {
+    setTimeout(() => {
+      navigate ( "/home")
+    }, 3000 )
+    toast.success( "Login successfully" );
+  })
+  .catch((error) => {
+    
+    const errorCode = error.code;
+    console.log(errorCode)
+    
+  });
+  }
+
   return (
     <div className="flex w-full h-screen">
         <div className="h-screen lg:w-1/2 w-4/5 mx-auto lg:flex items-center pl lg:pr-[69px] grid ">
         <div className="lg:w-[497px] lg:ms-auto lg:me-0 text-center">
           <div className='lg:hidden block fixed top-0 left-1/2 -translate-x-1/2 py-4'>
-            <img src={logo} alt="" />
+            <img src={logo}/>
           </div>
                   <h1 className='text-3xl text-tertiary font-nunito font-bold mb-8'>Login to your account!</h1>
                   
-          <button className='flex items-center font-semibold latter-spacing-[.267px] border border-[#b8b9ce]  rounded-lg px-5 py-2 lg:text-base text-sm'><img src={google} className='mr-2' />Login with Google</button>
+          <div className="flex gap-x-2">
+            <button onClick={handleGoogle} className='flex w-1/2 items-center font-semibold latter-spacing-[.267px] border border-[#b8b9ce]  rounded-lg px-5 py-2 lg:text-base text-sm'><img src={google} className='mr-2' />Login with Google</button>
+            <button onClick={handleFacebook} className='flex w-1/2 items-center font-semibold latter-spacing-[.267px] border border-[#b8b9ce]  rounded-lg px-5 py-2 lg:text-base text-sm'><BsFacebook className='mr-3 text-blue-500 scale-150' />Login with Facebook</button>
+          </div>
           <ToastContainer
           position="top-center"
           autoClose={3000}
