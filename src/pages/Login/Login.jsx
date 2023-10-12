@@ -13,6 +13,9 @@ const Login = () => {
   const auth = getAuth();
   const providerGoogle = new GoogleAuthProvider();
   const providerFacebook = new FacebookAuthProvider();
+  
+
+
   const [ showPassword, setShowPassword ] = useState( false )
   
   const [ email, setEmail ] = useState( "" )
@@ -75,7 +78,7 @@ const Login = () => {
 
   const handleGoogle = () => {
     signInWithPopup(auth, providerGoogle)
-  .then(() => {
+      .then( () => {
     setTimeout(() => {
       navigate ( "/home")
     }, 3000 )
@@ -88,7 +91,7 @@ const Login = () => {
 
   const handleFacebook = () => {
     signInWithPopup(auth, providerFacebook)
-  .then(() => {
+      .then( () => {
     setTimeout(() => {
       navigate ( "/home")
     }, 3000 )
