@@ -7,14 +7,17 @@ import { PiEyeLight, PiEyeClosedLight } from 'react-icons/pi'
 import { getAuth, signInWithEmailAndPassword , GoogleAuthProvider, signInWithPopup , FacebookAuthProvider } from "firebase/auth";
 import { ToastContainer, toast } from 'react-toastify'
 import {BsFacebook} from 'react-icons/bs'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../Slices/userSlice'
 
 const Login = () => {
+
+  const dispatch = useDispatch()
+
   const navigate = useNavigate();
   const auth = getAuth();
   const providerGoogle = new GoogleAuthProvider();
   const providerFacebook = new FacebookAuthProvider();
-  
-
 
   const [ showPassword, setShowPassword ] = useState( false )
   
@@ -57,13 +60,19 @@ const Login = () => {
     }
 
     signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      toast.success( "Login successfully" );
-      setTimeout(() => {
-        navigate ( "/home")
-      }, 3000 )
-      setEmail( "" )
-      setPassword( "" )
+      .then( (user) => {
+      console.log(user.user)
+      if (user.user.emailVerified === true) {
+        toast.success( "Login successfully" );
+        setTimeout(() => {
+          navigate ( "/home")
+        }, 2000 )
+        dispatch( setUser( user.user ) )
+        localStorage.setItem( 'user', JSON.stringify( user.user ) )
+      } else {
+        toast.error( "Please verify your email" );
+      }
+      
     })
     .catch((error) => {
       const errorCode = error.code;
