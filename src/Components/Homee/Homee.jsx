@@ -1,4 +1,3 @@
-import Comment from "../Comment/Comment"
 import Menu from "../Menu/Menu"
 
 const Homee = () => {
