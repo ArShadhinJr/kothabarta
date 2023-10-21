@@ -1,4 +1,14 @@
 @tailwind base;
+
+
+@layer components {
+    .activeLink {
+        @apply relative z-[1] py-4 before:content-[""] before:h-full before:w-10/12 before:bg-white before:top-0 before:right-0 before:absolute before:rounded-l-2xl before:z-[-1] after:content-[""] after:h-full after:w-1/12 after:bg-primary after:top-0 after:right-0 after:absolute after:rounded-l-xl after:z-[-1] text-primary;
+    }
+    .link {
+        @apply relative z-[1] py-4 before:content-[""] before:h-full before:w-10/12 before:bg-white before:top-0 before:right-0 before:absolute before:rounded-l-2xl before:z-[-1] after:content-[""] after:h-full after:w-10/12 after:bg-primary after:top-0 after:right-0 after:absolute after:rounded-l-xl after:z-[-1] group-hover:after:w-1/12 after:transform after:transition-all after:duration-300 transform transition-all duration-300 text-white group-hover:text-primary; 
+    }
+}
+
 @tailwind components;
 @tailwind utilities;
-

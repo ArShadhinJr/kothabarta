@@ -87,10 +87,13 @@ const Login = () => {
 
   const handleGoogle = () => {
     signInWithPopup(auth, providerGoogle)
-      .then( () => {
+      .then( (user) => {
     setTimeout(() => {
-      navigate ( "/home")
+      navigate ( "/homee")
     }, 3000 )
+    console.log(user.user)
+    dispatch( setUser( user.user ) )
+    localStorage.setItem( 'user', JSON.stringify( user.user ) )
     toast.success( "Login successfully" );
   }).catch((error) => {
     const errorCode = error.code;
@@ -102,7 +105,7 @@ const Login = () => {
     signInWithPopup(auth, providerFacebook)
       .then( () => {
     setTimeout(() => {
-      navigate ( "/home")
+      navigate ( "/homee")
     }, 3000 )
     toast.success( "Login successfully" );
   })

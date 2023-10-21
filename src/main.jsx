@@ -10,6 +10,10 @@ import Home from './pages/Home/Home'
 import ForgotPassword from './Components/ForgotPassword/ForgotPassword'
 import { Provider } from 'react-redux'
 import { store } from './Redux/store'
+import Homee from './Components/Homee/Homee'
+import Comment from './Components/Comment/Comment'
+import Notification from './Components/Notification/Notification'
+import Setting from './Components/Setting/Setting'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -20,7 +24,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/registration" element={<Registration />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/homee" element={<Homee />} />
+          <Route path='/comment' element={<Comment />} />
+          <Route path='/notification' element={<Notification />} />
+          <Route path="/setting" element={<Setting />} />
+          <Route path="*" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </Provider>
