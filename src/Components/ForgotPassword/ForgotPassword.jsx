@@ -55,7 +55,7 @@ const ForgotPassword = () => {
                 pauseOnHover
                 theme="light"
                 />
-    <DivCenter className="w-[700px] bg-primary text-white rounded-lg px-4 py-10">
+    <DivCenter className="md:w-[700px] w-[350px] bg-primary text-white rounded-lg px-4 py-10">
         <p className="text-xl">Send password reset link</p>
         <form onSubmit={handleSend}>
             <input value={email} onChange={handleEmail} type="email" className="mt-6 px-4 py-2 w-full border border-[#b8b9ce] text-gray-900 text-xl focus:outline-none focus:ring-0 rounded-lg appearance-none" placeholder="Enter your email" />
