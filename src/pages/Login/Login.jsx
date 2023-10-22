@@ -91,7 +91,6 @@ const Login = () => {
     setTimeout(() => {
       navigate ( "/homee")
     }, 3000 )
-    console.log(user.user)
     dispatch( setUser( user.user ) )
     localStorage.setItem( 'user', JSON.stringify( user.user ) )
     toast.success( "Login successfully" );

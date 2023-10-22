@@ -10,17 +10,28 @@ import { AiFillSetting } from 'react-icons/ai'
 import { AiOutlineLogout } from 'react-icons/ai'
 import { IoMdCloudUpload } from 'react-icons/io'
 import MenuItem from '../MenuItem/MenuItem'
-import { useState } from 'react'
+import { createRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAuth, signOut } from 'firebase/auth'
+import { getAuth, signOut, updateProfile } from 'firebase/auth'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import { setUser } from '../../Slices/userSlice'
 import ProfileUploadModal from '../ProfileUploadModal/ProfileUploadModal'
+// upload to firebase with file 
+import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage";
+import "cropperjs/dist/cropper.css";
 
 const Menu = () => {
 
+    const storage = getStorage();
+    
+    const [image, setImage] = useState("");
+    const [cropData, setCropData] = useState("");
+    const cropperRef = createRef();
+    
+    
     const user = useSelector( ( state ) => state.user.userInfo )
+    const storageRef = ref( storage, (user?.uid ? user?.uid : "image") );
     const auth = getAuth()
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -41,6 +52,41 @@ const Menu = () => {
     
     const [showModal , setShowModal] = useState(false)
 
+    const handlePhoto = (e) => {
+    e.preventDefault();
+    let files;
+    if (e.dataTransfer) {
+      files = e.dataTransfer.files;
+    } else if (e.target) {
+      files = e.target.files;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result);
+    };
+    reader.readAsDataURL(files[0]);
+    };
+
+    const getCropData = () => {
+        if ( typeof cropperRef.current?.cropper !== "undefined" ) {
+            setCropData( cropperRef.current?.cropper.getCroppedCanvas().toDataURL() );
+
+            const message = cropperRef.current?.cropper.getCroppedCanvas().toDataURL();
+            uploadString(storageRef, message, 'data_url').then((snapshot) => {
+              getDownloadURL(storageRef).then((downloadURL) => {
+                  updateProfile(auth.currentUser, {
+                      photoURL: downloadURL 
+                  } )
+                  .then(() => {
+                      dispatch( setUser( { ...user, photoURL: downloadURL } ) )
+                      setShowModal(false)
+                  })
+              } );
+                
+            }); 
+        }
+    }; 
+
     const logOut = () => {
         signOut( auth ).then( () => {
             setTimeout(() => {
@@ -53,6 +99,7 @@ const Menu = () => {
             console.log(error.code)
         })
     }
+
 
     return (
       <>
@@ -67,7 +114,7 @@ const Menu = () => {
               draggable
           />
         {
-            showModal ? <ProfileUploadModal onClick={() => setShowModal(false)}></ProfileUploadModal> :  null
+            showModal ? <ProfileUploadModal image={image} cropperRef={cropperRef} onChange={handlePhoto} onPhotoUpload={getCropData} onClick={() => setShowModal(false)}></ProfileUploadModal> :  null
         }
         <div className="w-[186px] h-full bg-primary py-[38px] text-white rounded-2xl flex flex-col justify-between text-center">
             
