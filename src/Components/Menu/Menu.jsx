@@ -79,7 +79,9 @@ const Menu = () => {
                   } )
                   .then(() => {
                       dispatch( setUser( { ...user, photoURL: downloadURL } ) )
-                      setShowModal(false)
+                      toast.success( "Update Profile Picture Successfully" );
+                      setShowModal( false )
+                      setImage( "" )
                   })
               } );
                 
