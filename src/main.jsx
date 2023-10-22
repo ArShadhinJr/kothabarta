@@ -15,7 +15,6 @@ import Homee from './Components/Homee/Homee'
 import Comment from './Components/Comment/Comment'
 import Notification from './Components/Notification/Notification'
 import Setting from './Components/Setting/Setting'
-import Menu from './Components/Menu/Menu'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
