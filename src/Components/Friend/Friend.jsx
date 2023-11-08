@@ -18,7 +18,7 @@ const Friend = () => {
     onValue( userRef, ( snapshot ) => {
       const frienData = []
       snapshot.forEach( ( friend ) => {
-        if ( friend.val().status === "accept" && friend.val().receiverId === userInformation.email ) {
+        if ( (friend.val().status === "accept" && friend.val().receiverId === userInformation.email) || (friend.val().status === "accept" && friend.val().senderId === userInformation.email) ) {
           
           frienData.push( friend.val() )
         }

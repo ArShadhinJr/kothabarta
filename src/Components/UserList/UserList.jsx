@@ -61,7 +61,7 @@ const UserList = () => {
         status: "pending",
         senderPhotoURL: userInformation.photoURL,
         photoURL: item.photoURL,
-        senderName: userInformation.displayName,
+        senderName: userInformation.disp,
         receverName: item.username,
         timestamp: Date.now(),
       });
