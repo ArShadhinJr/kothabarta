@@ -1,5 +1,6 @@
-import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth"
-import { useState } from 'react'
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification, updateProfile } from "firebase/auth"
+import { getDatabase, ref, set } from "firebase/database"
+import { useId, useState } from 'react'
 import { PiEyeClosedLight, PiEyeLight } from 'react-icons/pi'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
@@ -9,6 +10,9 @@ import registration from '../../assets/images/registration.png'
 const Registration = () => {
   const navigate = useNavigate();
   const auth = getAuth(); 
+
+  // firebase data write 
+  const db = getDatabase();
 
   const [ email, setEmail ] = useState( '' )
   const [ fullName, setFullName ] = useState( '' )
@@ -100,12 +104,26 @@ const Registration = () => {
             .then(() => {
               sendEmailVerification( auth.currentUser )
               .then ( () => {
-                reset()
-                toast.success( "Check your email for verification" )
-                setTimeout(() => {
-                  navigate("/")
-                }, 3000)
+                updateProfile(auth.currentUser, {
+                    displayName: fullName, 
+                  photoURL : "https://i.ibb.co/28yKTHD/1649500464.png" // demo image link for user 
+                } )
+                .then(()=>{
+                  reset()
+                  toast.success( "Check your email for verification" )
+                  setTimeout(() => {
+                    navigate("/")
+                  }, 3000 )
+                }).then( () => {
+                  console.log( 'first' , fullName, password, email )
+                  set( ref( db, 'users/' + auth.currentUser.uid ), {
+                    username: fullName,
+                    email: email,
+                    photoURL : "https://i.ibb.co/28yKTHD/1649500464.png"
+                  });
               })
+              } )
+              
             })
             .catch((error) => {
               const errorCode = error.code;

@@ -65,7 +65,7 @@ const Login = () => {
       if (user.user.emailVerified === true) {
         toast.success( "Login successfully" );
         setTimeout(() => {
-          navigate ( "/home")
+          navigate ( "/homee")
         }, 2000 )
         dispatch( setUser( user.user ) )
         localStorage.setItem( 'user', JSON.stringify( user.user ) )

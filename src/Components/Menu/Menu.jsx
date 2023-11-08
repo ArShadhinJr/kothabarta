@@ -79,6 +79,8 @@ const Menu = () => {
                   } )
                   .then(() => {
                       dispatch( setUser( { ...user, photoURL: downloadURL } ) )
+                      localStorage.setItem( 'user', JSON.stringify( { ...user, photoURL: downloadURL } ) )
+                      
                       toast.success( "Update Profile Picture Successfully" );
                       setShowModal( false )
                       setImage( "" )
@@ -122,9 +124,11 @@ const Menu = () => {
             
             <div className='relative group'>
                 <img src={user?.photoURL ? user.photoURL : profile} width={100} className='rounded-full inline-block'/>
+                
                 <div className='bg-black bg-opacity-25 w-[100px] opacity-0 flex items-center justify-center h-full rounded-full mx-auto absolute top-0 right-1/2 translate-x-1/2 transform transition-all duration-200 group-hover:opacity-100'>
                     <a href="#"><IoMdCloudUpload onClick={() => setShowModal(true)} className='inline-block text-white' size={24}></IoMdCloudUpload></a>
                 </div>
+                <p  className='absolute -bottom-8 left-1/2 -translate-x-1/2 w-full'>{user?.displayName}</p>
             </div>
             <div>
                 <ul className='flex flex-col gap-y-[40px]'>
