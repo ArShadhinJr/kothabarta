@@ -1,7 +1,7 @@
 import Box from "../Box/Box"
 import Inner from "../Inner/Inner"
 // import { friendReqData } from "../../assets/Data/FriendReqData"
-import { getDatabase, onValue, ref } from "firebase/database"
+import { getDatabase, onValue, ref,  child, push, update } from "firebase/database"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 
@@ -27,14 +27,32 @@ const FriendRequest = () => {
     
     console.log( friendReqList.length )
     
-  }, [])
+  }, [] )
+  
+  const handleAccept = ( item ) => {
+    const userRef = ref(db, 'friendRequests/');
+    onValue(userRef, (snapshot) => {
+    
+    
+    // show every data 
+    snapshot.forEach((user) => {
+      if ( user.val().senderId === item.senderId && user.val().receiverId === userInformation.email ) {
+        update(ref(db, 'friendRequests/' + user.key ), {
+            status: "accept"
+        })
+      }
+    })
+    
+    });
+    
+  }
 
   return (
     <Box name="Friend Request">
         {
             friendRequestData.map((item, index)=>{
                 return (
-                    <Inner key={index} src={item.senderPhotoURL} name={item.senderName} dec={item.senderId}><button className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Accept</button></Inner>
+                    <Inner key={index} src={item.senderPhotoURL} name={item.senderName} dec={item.senderId}><button onClick={()=>handleAccept(item)} className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Accept</button></Inner>
                 )
             })
         }

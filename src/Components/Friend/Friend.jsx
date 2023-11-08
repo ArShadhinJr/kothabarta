@@ -1,15 +1,38 @@
 import Box from "../Box/Box"
-import { frienData } from "../../assets/Data/FriendData"
+// import { frienData } from "../../assets/Data/FriendData"
 import Inner from "../Inner/Inner"
+import { getDatabase, onValue, ref } from "firebase/database"
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 
 
 const Friend = () => {
+  const db = getDatabase();
+  const [ frienDataList, setFrienDataList ] = useState( [] )
+  const userInformation = useSelector( state => state.user.userInfo )
+
+  useEffect( () => {
+    const userRef = ref( db, 'friendRequests/' );
+
+    
+    onValue( userRef, ( snapshot ) => {
+      const frienData = []
+      snapshot.forEach( ( friend ) => {
+        if ( friend.val().status === "accept" && friend.val().receiverId === userInformation.email ) {
+          
+          frienData.push( friend.val() )
+        }
+      } )
+      setFrienDataList( frienData )
+    
+    } )
+  }, [])
   return (
     <Box name="Friend">
         {
-            frienData.map((item, index )=>{
+            frienDataList.map((item, index )=>{
                 return (
-                    <Inner key={index} src={item.src} name={item.name} dec={item.dec}><h4 className="text-gray-500">{item.lastOnline}</h4></Inner>
+                    <Inner key={index} src={ userInformation.photoURL=== item.photoURL  ? item.senderPhotoURL : item.photoURL} name={userInformation.displayName === item.receverName ? item.senderName : item.receverName } dec={userInformation.email === item.receiverId ? item.senderId : item.receiverId}><h4 className="text-gray-500">2 minutes ago</h4></Inner>
                 )
             })
         }
