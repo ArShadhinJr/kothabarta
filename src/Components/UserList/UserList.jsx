@@ -59,8 +59,10 @@ const UserList = () => {
         senderId: userInformation.email,
         receiverId: item.email,
         status: "pending",
+        senderPhotoURL: userInformation.photoURL,
         photoURL: item.photoURL,
-        username: item.username,
+        senderName: userInformation.displayName,
+        receverName: item.username,
         timestamp: Date.now(),
       });
 

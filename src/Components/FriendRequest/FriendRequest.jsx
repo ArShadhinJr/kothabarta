@@ -13,18 +13,19 @@ const FriendRequest = () => {
 
   useEffect(()=>{
     const friendReqData = ref(db, 'friendRequests/' )
-    const friendReqNumber = []
+    const friendReqList = []
     onValue(friendReqData, (snapshot) => {
       snapshot.forEach(( item ) => {
         if( item.val().receiverId === userInformation.email ) {
           if( item.val().status === "pending" ) {
-            friendReqNumber.push( item.val() )
+            friendReqList.push( item.val() )
           }
-        }
+        }setFriendRequestData(friendReqList)
       } )
-      setFriendRequestData(friendReqNumber)
+      
     } );
-    console.log( friendReqNumber.length )
+    
+    console.log( friendReqList.length )
     
   }, [])
 
@@ -33,7 +34,7 @@ const FriendRequest = () => {
         {
             friendRequestData.map((item, index)=>{
                 return (
-                    <Inner key={index} src={item.photoURL} name={item.username} dec={item.senderId}><button className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Accept</button></Inner>
+                    <Inner key={index} src={item.senderPhotoURL} name={item.senderName} dec={item.senderId}><button className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Accept</button></Inner>
                 )
             })
         }

@@ -33,7 +33,7 @@ const GroupList = () => {
         {
             requestList.map((item, index) => {
                 return (
-                    <Inner key={index} src={item.photoURL} name={item.username} dec={item.receiverId}><button  className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Cencle</button></Inner>
+                    <Inner key={index} src={item.photoURL} name={item.receverName} dec={item.receiverId}><button  className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Cencle</button></Inner>
                 )
             })
         }
