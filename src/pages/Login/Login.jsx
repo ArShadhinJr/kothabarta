@@ -9,10 +9,12 @@ import { ToastContainer, toast } from 'react-toastify'
 import {BsFacebook} from 'react-icons/bs'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../Slices/userSlice'
+import { getDatabase, ref, set } from "firebase/database";
 
 const Login = () => {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const db = getDatabase();
 
   const navigate = useNavigate();
   const auth = getAuth();
@@ -88,9 +90,14 @@ const Login = () => {
   const handleGoogle = () => {
     signInWithPopup(auth, providerGoogle)
       .then( (user) => {
-    setTimeout(() => {
+      setTimeout(() => {
       navigate ( "/homee")
-    }, 3000 )
+      }, 3000 )
+        set( ref( db, 'users/' + user.user.uid ), {
+          username: user.user.displayName, 
+          email: user.user.email, 
+          photoURL: user.user.photoURL
+        })
     dispatch( setUser( user.user ) )
     localStorage.setItem( 'user', JSON.stringify( user.user ) )
     toast.success( "Login successfully" );
