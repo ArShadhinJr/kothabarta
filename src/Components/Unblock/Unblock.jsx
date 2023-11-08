@@ -4,7 +4,7 @@ import Inner from "../Inner/Inner"
 
 const Unblock = () => {
   return (
-    <Box name="Unblock Users">
+    <Box name="Block Users">
         {
             unblockUsersData.map((item, index)=>{
                 return (
