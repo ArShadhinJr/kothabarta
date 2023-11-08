@@ -1,9 +1,9 @@
-import Box from "../Box/Box"
+import Box from "../Box/Box";
 // import { userListData } from "../../assets/Data/UserListData"
-import Inner from "../Inner/Inner"
-import { getDatabase, ref,   onValue, push, set } from "firebase/database";
+import { getDatabase, onValue, ref, set } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
+import Inner from "../Inner/Inner";
 
 
 const UserList = () => {
@@ -61,7 +61,7 @@ const UserList = () => {
         status: "pending",
         senderPhotoURL: userInformation.photoURL,
         photoURL: item.photoURL,
-        senderName: userInformation.disp,
+        senderName: userInformation.displayName,
         receverName: item.username,
         timestamp: Date.now(),
       });
