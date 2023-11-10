@@ -23,7 +23,6 @@ const GroupList = () => {
         }
         }
         setRequestList( sendRequestList )
-        console.log(sendRequestList)
 })
 });
   }, [])

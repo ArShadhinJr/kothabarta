@@ -3,7 +3,7 @@ import  { BiDotsVerticalRounded, BiDownArrow, BiUpArrow } from 'react-icons/bi'
 /* eslint-disable react/prop-types */
 
 const Box = ( props ) => {
-  const [close , setClose] = useState(true)
+  const [close , setClose] = useState(window.innerWidth < 786 ? true : false)
   return (
     <div>
         <div className=" bg-white border rounded-[20px] px-[23px] py-[20px] drop-shadow-lg mb-4 ">

@@ -1,6 +1,6 @@
 import Box from "../Box/Box";
 // import { userListData } from "../../assets/Data/UserListData"
-import { getDatabase, onValue, ref, set } from "firebase/database";
+import { getDatabase, onValue, push, ref, set } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import Inner from "../Inner/Inner";
@@ -48,14 +48,14 @@ const UserList = () => {
       const friendReqNumber = []
       onValue(friendReqData, (snapshot) => {
         snapshot.forEach(( item ) => {
-          friendReqNumber.push(item.val())
+          friendReqNumber.push( { ...item.val(), userid: item.kye } )
+          console.log(item.kye); 
         })
       } );
-      console.log(friendReqNumber.length)
     
     
       // Set the friend request data
-      set(ref(db, "friendRequests/" + (Math.random() * 10000000000).toFixed(0)), {
+      set(push(ref(db, "friendRequests/")), {
         senderId: userInformation.email,
         receiverId: item.email,
         status: "pending",
@@ -65,8 +65,6 @@ const UserList = () => {
         receverName: item.username,
         timestamp: Date.now(),
       });
-
-      console.log("Friend request sent");
     };
   
 
