@@ -5,7 +5,7 @@ import Menu from "../Menu/Menu"
 import MenuMobile from "../MenuMobile/MenuMobile"
 const Homee = () => {
   return (
-    <div className="px-[32px] py-[35px] h-screen w-full flex">
+    <div className="md:px-[32px] sm:px-[24px] px-[8px] py-[35px] h-screen w-full flex">
       {
         window.innerWidth > 768 ? <Menu></Menu> : <MenuMobile></MenuMobile>
       }
