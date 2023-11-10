@@ -4,6 +4,9 @@ import { AiFillBell, AiFillHome, AiFillSetting, AiOutlineBell, AiOutlineSetting 
 import { AiOutlineHome } from 'react-icons/ai'
 import { Outlet } from "react-router-dom"
 import { FaCommentDots, FaRegCommentDots } from "react-icons/fa"
+import logo from '../../assets/images/logo-dark.png'
+import { useSelector } from "react-redux"
+
 
 const MenuMobile = () => {
 
@@ -19,9 +22,18 @@ const MenuMobile = () => {
         bell: false,
         setting: false,
     } )
+    const user = useSelector( state => state.user.userInfo )
+    console.log(user.photoURL)
   return (
     <div>
-        <div className="fixed top-0 right-0 bg-primary p-4 pt-0 z-10 w-full text-white">MenuMobile</div>
+        <div className="fixed top-0 right-0 bg-primary p-4 z-10 w-full text-white flex items-center justify-between">
+            <div>
+                <img src={logo} className="w-[45px]" />
+            </div>
+            <div>
+                <img src={user?.photoURL} className="w-[45px] rounded-full" />
+            </div>
+        </div>
         <div className="fixed bottom-0 right-0 bg-primary p-4 pt-0 z-10 w-full text-white">
             <ul className='flex items-center justify-around'>
                 <MenuItem to='/homee' onClick={() => setActive({ ...active, home: true , comment: false , bell: false , setting: false })} className={active?.home ? 'moblieActiveLink' : 'moblieLink'} name="home" onMouseEnter={() => setHover({ ...hover, home: true })} onMouseLeave={() => setHover({ ...hover, home: false })}>{hover.home || active.home ? <AiFillHome className='inline-block' size={30}></AiFillHome> : <AiOutlineHome className='inline-block' size={30}></AiOutlineHome>}</MenuItem>
