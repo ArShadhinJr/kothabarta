@@ -10,7 +10,7 @@ import { AiFillSetting } from 'react-icons/ai'
 import { AiOutlineLogout } from 'react-icons/ai'
 import { IoMdCloudUpload } from 'react-icons/io'
 import MenuItem from '../MenuItem/MenuItem'
-import { createRef, useState } from 'react'
+import { createRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAuth, signOut, updateProfile } from 'firebase/auth'
 import { Outlet, useNavigate } from 'react-router-dom'
@@ -20,6 +20,7 @@ import ProfileUploadModal from '../ProfileUploadModal/ProfileUploadModal'
 // upload to firebase with file 
 import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage";
 import "cropperjs/dist/cropper.css";
+import MenuMobile from '../MenuMobile/MenuMobile'
 
 const Menu = () => {
 
@@ -104,7 +105,6 @@ const Menu = () => {
         })
     }
 
-
     return (
       <>
         <ToastContainer
@@ -128,7 +128,7 @@ const Menu = () => {
                 <div className='bg-black bg-opacity-25 w-[100px] opacity-0 flex items-center justify-center h-full rounded-full mx-auto absolute top-0 right-1/2 translate-x-1/2 transform transition-all duration-200 group-hover:opacity-100'>
                     <a href="#"><IoMdCloudUpload onClick={() => setShowModal(true)} className='inline-block text-white' size={24}></IoMdCloudUpload></a>
                 </div>
-                <p  className='absolute -bottom-8 left-1/2 -translate-x-1/2 w-full'>{user?.displayName}</p>
+                {window.innerWidth >= 1024 ? <p className='absolute -bottom-8 left-1/2 -translate-x-1/2 w-full' >{user?.displayName}</p>: null}
             </div>
             <div>
                 <ul className='flex flex-col gap-y-[40px]'>

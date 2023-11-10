@@ -137,8 +137,8 @@ const Registration = () => {
 
   return (
     <div className="flex w-full h-screen">
-        <div className="h-full lg:w-1/2 lg:flex items-center lg:pr-[69px] w-full grid">
-        <div className="lg:w-[497px] w-4/5 mx-auto lg:mx-0 px-2 lg:ms-auto lg:text-start text-center ">
+        <div className="h-full xl:w-1/2 xl:flex items-center xl:pr-[69px] w-full grid">
+        <div className="xl:w-[497px] w-4/5 mx-auto xl:mx-0 px-2 xl:ms-auto xl:text-start text-center ">
           <ToastContainer
           position="top-center"
           autoClose={3000}
@@ -151,66 +151,66 @@ const Registration = () => {
           pauseOnHover
           theme="light"
           />
-                  <div className='block lg:hidden mb-5'>
+                  <div className='block xl:hidden mb-5'>
                     <img src={logo} />
                   </div>
-                  <h1 className='lg:text-3xl text-2xl  text-tertiary font-nunito font-bold mb-3'>Get started with easily register</h1>
+                  <h1 className='xl:text-3xl text-2xl  text-tertiary font-nunito font-bold mb-3'>Get started with easily register</h1>
                   <p className="text-secondary text-xm">Sign up to get started with kothabarta</p>
 
-                  <form action="#"  className="lg:mt-12 md:mt-10 sm:mt-8 mt-6 ">
-                  <div className="relative z-10 lg:w-[368px] w-full lg:mt-12 md:mt-10 sm:mt-8 mt-6 group">
+                  <form action="#"  className="xl:mt-12 md:mt-10 sm:mt-8 mt-6 ">
+                  <div className="relative z-10 xl:w-[368px] w-full xl:mt-12 md:mt-10 sm:mt-8 mt-6 group">
                     <input
                       type="email"
                       id="email"
                       value={email}
                       onChange={handleEmailErr}
-                      className="block lg:px-[52px] md:px-[40px] sm:px-[30px] px-[22px] lg:py-[26px] md:py-[20px] sm:py-[16px] py-[10px] w-full lg:text-xl md:text-lg text-md text-primary bg-transparent border border-[#b8b9ce] focus:outline-none focus:ring-0 focus:border-primary rounded-lg appearance-none peer"
+                      className="block xl:px-[52px] md:px-[40px] sm:px-[30px] px-[22px] xl:py-[26px] md:py-[20px] sm:py-[16px] py-[10px] w-full xl:text-xl md:text-lg text-md text-primary bg-transparent border border-[#b8b9ce] focus:outline-none focus:ring-0 focus:border-primary rounded-lg appearance-none peer"
                       placeholder=" " 
                       required  
                       />
 
                     <label
                       htmlFor="email"
-                      className=" peer-focus:lg:text-xl md:text-lg text-md absolute text-secondary duration-300 transform  -translate-y-10  scale-75 top-6 left-8 z-10 bg-white px-5 origin-[0] peer-focus:left-8  peer-placeholder-shown:-z-10 peer-placeholder-shown:left-8  peer-placeholder-shown:scale-100  lg:peer-placeholder-shown:translate-y-0
+                      className=" peer-focus:xl:text-xl md:text-lg text-md absolute text-secondary duration-300 transform  -translate-y-10  scale-75 top-6 left-8 z-10 bg-white px-5 origin-[0] peer-focus:left-8  peer-placeholder-shown:-z-10 peer-placeholder-shown:left-8  peer-placeholder-shown:scale-100  xl:peer-placeholder-shown:translate-y-0
                       md:peer-placeholder-shown:-translate-y-1
                       sm:peer-placeholder-shown:-translate-y-2
                       peer-placeholder-shown:-translate-y-3 peer-focus:scale-75  peer-focus:z-10 peer-focus:bg-white  peer-focus:text-primary peer-focus:px-5  peer-focus:-translate-y-10"
                       >Email address</label>
                       
                       {
-                      emailErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded lg:text-base md:text-sm text-xs">{emailErr}</p> : null 
+                      emailErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded xl:text-base md:text-sm text-xs">{emailErr}</p> : null 
                       }
                   </div>
-                  <div className="relative z-10 lg:w-[368px] w-full lg:mt-12 md:mt-10 sm:mt-8 mt-6 group">
+                  <div className="relative z-10 xl:w-[368px] w-full xl:mt-12 md:mt-10 sm:mt-8 mt-6 group">
                     <input
                       type="text"
                       id="fullName"
                       value={fullName}
                       onChange={handleFullNameErr}
-                      className="block lg:px-[52px] md:px-[40px] sm:px-[30px] px-[22px] lg:py-[26px] md:py-[20px] sm:py-[16px] py-[10px] w-full lg:text-xl md:text-lg text-md text-primary bg-transparent border border-[#b8b9ce] focus:outline-none focus:ring-0 focus:border-primary rounded-lg appearance-none peer"
+                      className="block xl:px-[52px] md:px-[40px] sm:px-[30px] px-[22px] xl:py-[26px] md:py-[20px] sm:py-[16px] py-[10px] w-full xl:text-xl md:text-lg text-md text-primary bg-transparent border border-[#b8b9ce] focus:outline-none focus:ring-0 focus:border-primary rounded-lg appearance-none peer"
                       placeholder=" "
                       required
                     />
 
                     <label
                       htmlFor="fullName"
-                      className=" peer-focus:lg:text-xl md:text-lg text-md absolute  text-secondary duration-300 transform  -translate-y-10  scale-75 top-6 left-8 z-10 bg-white px-5 origin-[0] peer-focus:left-8  peer-placeholder-shown:-z-10 peer-placeholder-shown:left-8  peer-placeholder-shown:scale-100  lg:peer-placeholder-shown:translate-y-0
+                      className=" peer-focus:xl:text-xl md:text-lg text-md absolute  text-secondary duration-300 transform  -translate-y-10  scale-75 top-6 left-8 z-10 bg-white px-5 origin-[0] peer-focus:left-8  peer-placeholder-shown:-z-10 peer-placeholder-shown:left-8  peer-placeholder-shown:scale-100  xl:peer-placeholder-shown:translate-y-0
                       md:peer-placeholder-shown:-translate-y-1
                       sm:peer-placeholder-shown:-translate-y-2
                       peer-placeholder-shown:-translate-y-3 peer-focus:scale-75  peer-focus:z-10 peer-focus:bg-white  peer-focus:text-primary peer-focus:px-5  peer-focus:-translate-y-10"
                       >Full Name</label>
                       
                       {
-                      fullNameErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded lg:text-base md:text-sm text-xs">{fullNameErr}</p> : null
+                      fullNameErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded xl:text-base md:text-sm text-xs">{fullNameErr}</p> : null
                       }
                   </div>
-                  <div className="input lg:w-[368px] w-full relative lg:mt-12 md:mt-10 sm:mt-8 mt-6">
-                      <input value={password} onChange={handlePasswordErr} type={showPassword ? "text" : "password"} className="border border-[#b8b9ce] lg:w-[368px] w-full lg:px-[52px] md:px-[40px] sm:px-[30px] px-[22px] lg:py-[26px] md:py-[20px] sm:py-[16px] py-[10px] focus:outline-none rounded-lg text-primary lg:text-xl md:text-lg text-md" placeholder="**********" required/>
+                  <div className="input xl:w-[368px] w-full relative xl:mt-12 md:mt-10 sm:mt-8 mt-6">
+                      <input value={password} onChange={handlePasswordErr} type={showPassword ? "text" : "password"} className="border border-[#b8b9ce] xl:w-[368px] w-full xl:px-[52px] md:px-[40px] sm:px-[30px] px-[22px] xl:py-[26px] md:py-[20px] sm:py-[16px] py-[10px] focus:outline-none rounded-lg text-primary xl:text-xl md:text-lg text-md" placeholder="**********" required/>
                       <span className="absolute top-0 left-12 -translate-y-3 bg-white px-[10px] text-[#9699ce] ">Password</span>
                       
                       
                       
-                      <p className="absolute right-4 top-1/2 transform -translate-y-1/2 lg:text-xl md:text-lg text-md">
+                      <p className="absolute right-4 top-1/2 transform -translate-y-1/2 xl:text-xl md:text-lg text-md">
                         {
                         showPassword ? <i onClick={()=>setShowPassword(false)} ><PiEyeLight/></i> : <i onClick={()=>setShowPassword(true)}><PiEyeClosedLight/></i>
                         }
@@ -218,17 +218,17 @@ const Registration = () => {
                       
                   </div>
                       {
-                      passwordErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded lg:text-base md:text-sm text-xs lg:w-[368px] w-full">{passwordErr}</p> : null
+                      passwordErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded xl:text-base md:text-sm text-xs xl:w-[368px] w-full">{passwordErr}</p> : null
                       }
-                  <div className="lg:w-[368px] w-full  lg:mt-10  sm:mt-8 mt-6">
-                      <button type="submit" onClick={handleSubmit} className="bg-primary text-white w-full lg:py-[20px] md:py-[17px] sm:py-[15px] py-[12px] rounded-full lg:text-xl md:text-lg text-md">Sign up</button>
-                      <p className='text-center lg:mt-8 md:mt-6 sm:mt-6 mt-4 text-tertiary lg:text-base text-sm'>Already have an account? <Link to='/' className="text-orange-600 font-bold">Sign in</Link></p> 
+                  <div className="xl:w-[368px] w-full  xl:mt-10  sm:mt-8 mt-6">
+                      <button type="submit" onClick={handleSubmit} className="bg-primary text-white w-full xl:py-[20px] md:py-[17px] sm:py-[15px] py-[12px] rounded-full xl:text-xl md:text-lg text-md">Sign up</button>
+                      <p className='text-center xl:mt-8 md:mt-6 sm:mt-6 mt-4 text-tertiary xl:text-base text-sm'>Already have an account? <Link to='/' className="text-orange-600 font-bold">Sign in</Link></p> 
                   </div>
                   </form>
             </div>
               
         </div>
-        <div className="h-screen lg:w-1/2 lg:block hidden">
+        <div className="h-screen xl:w-1/2 xl:block hidden">
             <img src={registration} alt="kothabarta reg image" className="h-screen w-full object-cover"/>
         </div>
     </div>

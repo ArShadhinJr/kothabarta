@@ -125,16 +125,16 @@ const Login = () => {
 
   return (
     <div className="flex w-full h-screen">
-        <div className="h-screen lg:w-1/2 w-4/5 mx-auto lg:flex items-center pl lg:pr-[69px] grid ">
-        <div className="lg:w-[497px] lg:ms-auto lg:me-0 text-center">
-          <div className='lg:hidden block fixed top-0 left-1/2 -translate-x-1/2 py-4'>
+        <div className="h-screen xl:w-1/2 w-4/5 mx-auto xl:flex items-center pl xl:pr-[69px] grid ">
+        <div className="xl:w-[497px] xl:ms-auto xl:me-0 text-center">
+          <div className='xl:hidden block fixed top-0 left-1/2 -translate-x-1/2 py-4'>
             <img src={logo}/>
           </div>
                   <h1 className='text-3xl text-tertiary font-nunito font-bold mb-8'>Login to your account!</h1>
                   
-          <div className="flex gap-x-2">
-            <button onClick={handleGoogle} className='flex w-1/2 items-center font-semibold latter-spacing-[.267px] border border-[#b8b9ce]  rounded-lg px-5 py-2 lg:text-base text-sm'><img src={google} className='mr-2' />Login with Google</button>
-            <button onClick={handleFacebook} className='flex w-1/2 items-center font-semibold latter-spacing-[.267px] border border-[#b8b9ce]  rounded-lg px-5 py-2 lg:text-base text-sm'><BsFacebook className='mr-3 text-blue-500 scale-150' />Login with Facebook</button>
+          <div className="flex gap-2 sm:flex-row flex-col">
+            <button onClick={handleGoogle} className='flex sm:w-1/2 w-full items-center font-semibold latter-spacing-[.267px] border border-[#b8b9ce] hover:bg-green-100 hover:border-green-500 hover:text-green-500 rounded-lg px-5 py-2 xl:text-base text-sm'><img src={google} className='mr-2' />Login with Google</button>
+            <button onClick={handleFacebook} className='flex sm:w-1/2 w-full items-center font-semibold latter-spacing-[.267px] border border-[#b8b9ce] hover:bg-sky-100 hover:border-sky-500 hover:text-sky-500 rounded-lg px-5 py-2 xl:text-base text-sm'><BsFacebook className='mr-3 text-blue-500 scale-150'/>Login with Facebook</button>
           </div>
           <ToastContainer
           position="top-center"
@@ -150,41 +150,41 @@ const Login = () => {
           />
                   
                   <form action="">
-                    <div className="relative z-0 lg:w-[368px] w-full lg:mt-16 md:mt-10 sm:mt-8 mt-6 group">
+                    <div className="relative z-0 xl:w-[368px] w-full xl:mt-16 md:mt-10 sm:mt-8 mt-6 group">
                     <input
                       type="email"
                       id="email"
                       value={email}
                       onChange={handleEmail}
-                      className="block py-[16px] lg:text-xl md:text-lg text-base w-full text-primary bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
+                      className="block py-[16px] xl:text-xl md:text-lg text-base w-full text-primary bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
                       placeholder=" "
                       required />
                     
                     <label
                       htmlFor="email"
-                      className="peer-focus:text-xl  absolute lg:text-xl md:text-lg text-base text-gray-500 duration-300 transform  -translate-y-10 scale-75 top-6 left-0 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
+                      className="peer-focus:text-xl  absolute xl:text-xl md:text-lg text-base text-gray-500 duration-300 transform  -translate-y-10 scale-75 top-6 left-0 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
                       peer-focus:z-10
                       peer-focus:bg-white 
                       peer-focus:text-primary 
                       peer-focus:-translate-y-10">Email address</label>
                       
                       {
-                      emailErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded lg:text-base md:text-sm text-xs">{emailErr}</p> : null 
+                      emailErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded xl:text-base md:text-sm text-xs">{emailErr}</p> : null 
                       }
                   </div>
-                  <div className="relative z-0 lg:w-[368px] w-full md:mt-10 sm:mt-8 mt-6 group">
+                  <div className="relative z-0 xl:w-[368px] w-full md:mt-10 sm:mt-8 mt-6 group">
                     <input
                       type={!showPassword ? "password" : "text"}
                       id="password"
                       value={password}
-                      className="block py-[16px] lg:text-xl md:text-lg text-base w-full text-primary bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
+                      className="block py-[16px] xl:text-xl md:text-lg text-base w-full text-primary bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-primary peer"
                       placeholder=" "
                       required 
                       onChange={handlePassword}/>
                     
                     <label
                       htmlFor="password"
-                      className="peer-focus:text-xl absolute lg:text-xl md:text-lg text-base text-gray-500 duration-300 transform  -translate-y-10 scale-75 top-6 left-0 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
+                      className="peer-focus:text-xl absolute xl:text-xl md:text-lg text-base text-gray-500 duration-300 transform  -translate-y-10 scale-75 top-6 left-0 -z-10 origin-[0] peer-focus:left-0  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 
                       peer-focus:z-10
                       peer-focus:bg-white 
                       peer-focus:text-primary 
@@ -197,22 +197,22 @@ const Login = () => {
             
                   </div>
                   
-                  <div className='lg:w-[368px] w-full'>
+                  <div className='xl:w-[368px] w-full'>
                       <p className='text-start mt-3'><Link to='/forgotPassword' className="text-orange-600 font-bold">Forgot Password</Link></p>
                       {
-                      passwordErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded lg:text-base md:text-sm text-xs">{passwordErr}</p> : null 
+                      passwordErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded xl:text-base md:text-sm text-xs">{passwordErr}</p> : null 
                       }
                     
                   </div>
-                  <div className="lg:w-[368px] w-full lg:mt-10 md:mt-10 sm:mt-8 mt-6">
-                      <button onClick={handleSubmit} className="bg-primary text-white w-full lg:py-[20px] md:py-[17px] sm:py-[15px] py-[12px] rounded-full lg:text-xl md:text-lg text-base" >Login to Continue</button>
-                      <p className='text-center lg:mt-9 md:mt-7 sm:mt-5 mt-4 text-tertiary lg:text-base text-sm'>Don’t have an account ? <Link to='/registration' className="text-orange-600 font-bold">Sign Up</Link></p>
+                  <div className="xl:w-[368px] w-full xl:mt-10 md:mt-10 sm:mt-8 mt-6">
+                      <button onClick={handleSubmit} className="bg-primary text-white w-full xl:py-[20px] md:py-[17px] sm:py-[15px] py-[12px] rounded-full xl:text-xl md:text-lg text-base" >Login to Continue</button>
+                      <p className='text-center xl:mt-9 md:mt-7 sm:mt-5 mt-4 text-tertiary xl:text-base text-sm'>Don’t have an account ? <Link to='/registration' className="text-orange-600 font-bold">Sign Up</Link></p>
                   </div>
                   </form>
             </div>
               
         </div>
-        <div className="h-screen lg:w-1/2 lg:block hidden">
+        <div className="h-screen xl:w-1/2 xl:block hidden">
             <img src={login} alt="kothabarta reg image" className="h-screen w-full object-cover"/>
         </div>
     </div>

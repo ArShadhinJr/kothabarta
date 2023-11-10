@@ -63,7 +63,10 @@ const ForgotPassword = () => {
             {
             emailErr ? <p className="text-white bg-red-500 px-3 mt-1 rounded lg:text-base md:text-sm text-xs">{emailErr}</p> : null
             }
-            <button type="submit" className="mt-4 px-10 py-2 bg-white hover:bg-gray-200 text-primary text-xl">Send</button>
+            <div className="flex justify-between gap-2">
+                <button type="submit" className="w-1/2 mt-4 px-10 py-2 bg-white hover:bg-gray-200 text-primary text-xl">Send</button>
+                <button type="button" onClick={() => navigate(-1)} className="w-1/2 mt-4 px-10 py-2 bg-white hover:bg-gray-200 text-primary text-xl">Cancel</button>
+            </div>
         </form>
     </DivCenter>
     </>

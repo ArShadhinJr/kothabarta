@@ -1,0 +1,42 @@
+import { useState } from "react"
+import MenuItem from "../MenuItem/MenuItem"
+import { AiFillBell, AiFillHome, AiFillSetting, AiOutlineBell, AiOutlineSetting } from 'react-icons/ai'
+import { AiOutlineHome } from 'react-icons/ai'
+import { Outlet } from "react-router-dom"
+import { FaCommentDots, FaRegCommentDots } from "react-icons/fa"
+
+const MenuMobile = () => {
+
+    const [active , setActive ] = useState( {
+        home: true,
+        comment: false,
+        bell: false,
+        setting: false,
+    } )
+    const [ hover, setHover ] = useState( {
+        home: false,
+        comment: false,
+        bell: false,
+        setting: false,
+    } )
+  return (
+    <div>
+        <div className="fixed top-0 right-0 bg-primary p-4 pt-0 z-10 w-full text-white">MenuMobile</div>
+        <div className="fixed bottom-0 right-0 bg-primary p-4 pt-0 z-10 w-full text-white">
+            <ul className='flex items-center justify-around'>
+                <MenuItem to='/homee' onClick={() => setActive({ ...active, home: true , comment: false , bell: false , setting: false })} className={active?.home ? 'moblieActiveLink' : 'moblieLink'} name="home" onMouseEnter={() => setHover({ ...hover, home: true })} onMouseLeave={() => setHover({ ...hover, home: false })}>{hover.home || active.home ? <AiFillHome className='inline-block' size={46}></AiFillHome> : <AiOutlineHome className='inline-block' size={46}></AiOutlineHome>}</MenuItem>
+                
+                <MenuItem onClick={() => setActive({ ...active, home: false , comment: true , bell: false , setting: false })} className={active?.comment ? 'moblieActiveLink' : 'moblieLink'} name="comment" onMouseEnter={()=> setHover({ ...hover, comment: true })} onMouseLeave={()=> setHover({ ...hover, comment: false })}>{hover.comment || active.comment ? <FaCommentDots className='inline-block' size={46}></FaCommentDots> : <FaRegCommentDots className='inline-block' size={46}></FaRegCommentDots>}</MenuItem>
+                    
+                <MenuItem onClick={() => setActive({ ...active, home: false , comment: false , bell: true , setting: false })} className={active?.bell ? 'moblieActiveLink' : 'moblieLink'} name="bell" onMouseEnter={()=> setHover({ ...hover, bell: true })} onMouseLeave={()=>{ setHover({ ...hover, bell: false })}}>{hover?.bell || active.bell ? <AiFillBell className='inline-block' size={46}></AiFillBell> : <AiOutlineBell className='inline-block' size={46}></AiOutlineBell> }</MenuItem>
+                    
+                <MenuItem onClick={() => setActive({ ...active, home: false , comment: false , bell: false , setting: true })} className={active?.setting ? 'moblieActiveLink' : 'moblieLink'} name="setting" onMouseEnter={()=>setHover({ ...hover, setting: true })} onMouseLeave={()=>{setHover({ ...hover, setting: false }) }}>{hover?.setting || active.setting ? <AiFillSetting className='inline-block' size={46}></AiFillSetting> : <AiOutlineSetting className='inline-block' size={46}></AiOutlineSetting> }</MenuItem>
+                <Outlet />
+            </ul>
+        </div>
+          
+    </div>
+  )
+}
+
+export default MenuMobile
