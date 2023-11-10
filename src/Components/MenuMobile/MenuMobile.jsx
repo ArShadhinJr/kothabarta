@@ -1,14 +1,34 @@
-import { useState } from "react"
+import { createRef, useState } from "react"
 import MenuItem from "../MenuItem/MenuItem"
 import { AiFillBell, AiFillHome, AiFillSetting, AiOutlineBell, AiOutlineSetting } from 'react-icons/ai'
 import { AiOutlineHome } from 'react-icons/ai'
 import { Outlet } from "react-router-dom"
 import { FaCommentDots, FaRegCommentDots } from "react-icons/fa"
 import logo from '../../assets/images/logo-dark.png'
-import { useSelector } from "react-redux"
+import profile from '../../assets/images/profile.jpg'
+import { useDispatch, useSelector } from "react-redux"
+import ProfileUploadModal from "../ProfileUploadModal/ProfileUploadModal"
+import { IoMdCloudUpload } from "react-icons/io"
+import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage"
+import { getAuth, updateProfile } from "firebase/auth"
+import { setUser } from "../../Slices/userSlice"
+import { toast } from "react-toastify"
 
 
 const MenuMobile = () => {
+    const storage = getStorage();
+    
+    const [image, setImage] = useState("");
+    const [cropData, setCropData] = useState("");
+    const cropperRef = createRef();
+
+    const [ showModal, setShowModal ] = useState( false )
+    
+    const user = useSelector( state => state.user.userInfo )
+
+    const storageRef = ref( storage, (user?.uid ? user?.uid : "image") );
+    const auth = getAuth()
+    const dispatch = useDispatch()
 
     const [active , setActive ] = useState( {
         home: true,
@@ -22,16 +42,61 @@ const MenuMobile = () => {
         bell: false,
         setting: false,
     } )
-    const user = useSelector( state => state.user.userInfo )
+    const handlePhoto = (e) => {
+    e.preventDefault();
+    let files;
+    if (e.dataTransfer) {
+      files = e.dataTransfer.files;
+    } else if (e.target) {
+      files = e.target.files;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result);
+    };
+    reader.readAsDataURL(files[0]);
+    };
+
+    const getCropData = () => {
+        if ( typeof cropperRef.current?.cropper !== "undefined" ) {
+            setCropData( cropperRef.current?.cropper.getCroppedCanvas().toDataURL() );
+
+            const message = cropperRef.current?.cropper.getCroppedCanvas().toDataURL();
+            uploadString(storageRef, message, 'data_url').then((snapshot) => {
+              getDownloadURL(storageRef).then((downloadURL) => {
+                  updateProfile(auth.currentUser, {
+                      photoURL: downloadURL 
+                  } )
+                  .then(() => {
+                      dispatch( setUser( { ...user, photoURL: downloadURL } ) )
+                      localStorage.setItem( 'user', JSON.stringify( { ...user, photoURL: downloadURL } ) )
+                      
+                      toast.success( "Update Profile Picture Successfully" );
+                      setShowModal( false )
+                      setImage( "" )
+                  })
+              } );
+                
+            }); 
+        }
+    };
     console.log(user.photoURL)
   return (
     <div>
         <div className="fixed top-0 right-0 bg-primary p-4 z-10 w-full text-white flex items-center justify-between">
+            {
+            showModal ? <ProfileUploadModal image={image} cropperRef={cropperRef} onChange={handlePhoto} onPhotoUpload={getCropData} onClick={() => setShowModal(false)}></ProfileUploadModal> :  null
+            }
             <div>
                 <img src={logo} className="w-[45px]" />
             </div>
-            <div>
-                <img src={user?.photoURL} className="w-[45px] rounded-full" />
+            <div className='relative group'>
+                <img src={user?.photoURL ? user?.photoURL : profile} width={45} className='rounded-full inline-block'/>
+                
+                <div className='bg-black bg-opacity-25 w-[45px] opacity-0 flex items-center justify-center h-full rounded-full mx-auto absolute top-0 right-1/2 translate-x-1/2 transform transition-all duration-200 group-hover:opacity-100'>
+                    <a href="#"><IoMdCloudUpload onClick={() => setShowModal(true)} className='inline-block text-white' size={24}></IoMdCloudUpload></a>
+                </div>
+                {window.innerWidth >= 1024 ? <p className='absolute -bottom-8 left-1/2 -translate-x-1/2 w-full' >{user?.displayName}</p>: null}
             </div>
         </div>
         <div className="fixed bottom-0 right-0 bg-primary p-4 pt-0 z-10 w-full text-white">
