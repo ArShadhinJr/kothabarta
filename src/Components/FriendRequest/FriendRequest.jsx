@@ -26,7 +26,7 @@ const FriendRequest = () => {
       
     } );
     
-  }, [] )
+  }, [friendRequestData] )
   
   const handleAccept = ( item ) => {
     const userRef = ref(db, 'friendRequests/');

@@ -26,7 +26,8 @@ const Friend = () => {
       setFrienDataList( frienData )
     
     } )
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [frienDataList])
   return (
     <Box name="Friend">
         {
