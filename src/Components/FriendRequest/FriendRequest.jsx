@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Box from "../Box/Box"
 import Inner from "../Inner/Inner"
 // import { friendReqData } from "../../assets/Data/FriendReqData"
-import { getDatabase, onValue, ref,  child, push, update } from "firebase/database"
+import { getDatabase, onValue, ref, update } from "firebase/database"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 
@@ -24,8 +25,6 @@ const FriendRequest = () => {
       } )
       
     } );
-    
-    console.log( friendReqList.length )
     
   }, [] )
   

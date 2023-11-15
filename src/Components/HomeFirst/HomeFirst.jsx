@@ -1,6 +1,6 @@
 
 import FriendRequest from "../FriendRequest/FriendRequest"
-import GroupList from "../GroupList/GroupList"
+import GroupList from "../GroupList/GroupList.jsx"
 import Search from "../Search/Search"
 
 const HomeFirst = () => {
