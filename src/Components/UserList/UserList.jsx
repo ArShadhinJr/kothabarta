@@ -12,32 +12,44 @@ const UserList = () => {
   // console.log(userInformation.uid)
 
   const db = getDatabase();
-  const [userData, setUserData] = useState([])
+  const [ userData, setUserData ] = useState( [] )
+  const [ friends, setFriends ] = useState( [] )
+  
+  
 
   useEffect( () => {
-    const userRef = ref(db, 'users/');
-    onValue(userRef, (snapshot) => {
-    // diclear an array 
-    const userList = [];
+    const userRef = ref( db, 'users/' );
+    onValue( userRef, ( snapshot ) => {
+      // diclear an array 
+      const userList = [];
     
-    // show every data 
-    snapshot.forEach((user) => {
-      // console.log(user.val())
-      if ( user.key != userInformation.uid ) {
-        userList.push( user.val() )
-      }
-    })
-    setUserData(userList)
+      // show every data 
+      snapshot.forEach( ( user ) => {
+        // console.log(user.val())
+        if ( user.key != userInformation.uid ) {
+          userList.push( user.val() )
+        }
+      } )
+      setUserData( userList )
     
-    });
-  }, [] )
+    } );
+  }, [] );
 
-  // const userShow =() =>{
-  //   userData.map( ( item ) => {
-  //     console.log(item)
-  //   })
-  // } 
-  // userShow()
+
+  useEffect( () => {
+    const starCountRef = ref( db, 'friendRequests/' );
+    const friends  = []
+    onValue(starCountRef, (snapshot) => {
+      snapshot.forEach( ( item ) => {
+        if ( (item.val().senderId === userInformation.email || item.val().receiverId  === userInformation.email)  ) {
+        friends.push( item.val() )  
+        }
+        setFriends( friends )
+})
+});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [friends, userData] )
+  
   
   const sendFriendRequest = (item) => {
       // const friendRequestRef = ref(db, "friendRequests/");
@@ -49,9 +61,9 @@ const UserList = () => {
       onValue(friendReqData, (snapshot) => {
         snapshot.forEach(( item ) => {
           friendReqNumber.push( { ...item.val(), userid: item.kye } )
-          console.log(item.kye); 
         })
       } );
+    
     
     
       // Set the friend request data
@@ -70,13 +82,19 @@ const UserList = () => {
 
   return (
     <Box name="User List">
-        {
-            userData.map((item, index)=>{
-                return (
-                    <Inner key={index}  src={item.photoURL} name={item.username} dec={item.email}><button onClick={()=>sendFriendRequest(item)} className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">+</button></Inner>
-                )
-            })
-        }
+      {userData.map((item, index) => (
+        <Inner key={index} src={item.photoURL} name={item.username} dec={item.email}>
+          {friends.some((friend) => friend.receiverId === item.email && friend.status === "pending") ? (
+            <button className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Cancel</button>
+          ) : friends.some((friend) => friend.senderId === item.email && friend.status === "pending") ? (
+            <button className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Accept</button>
+          ) : friends.some((friend) => (friend.receiverId === item.email || friend.senderId === item.email) && friend.status === "accept") ? (
+            <button className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Friend</button>
+          ) : (
+            <button onClick={() => sendFriendRequest(item)} className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Add</button>
+          )}
+        </Inner>
+      ))}
     </Box>
   )
 }

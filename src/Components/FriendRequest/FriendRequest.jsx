@@ -31,9 +31,6 @@ const FriendRequest = () => {
   const handleAccept = ( item ) => {
     const userRef = ref(db, 'friendRequests/');
     onValue(userRef, (snapshot) => {
-    
-    
-    // show every data 
     snapshot.forEach((user) => {
       if ( user.val().senderId === item.senderId && user.val().receiverId === userInformation.email ) {
         update(ref(db, 'friendRequests/' + user.key ), {
