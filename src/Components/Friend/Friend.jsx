@@ -3,13 +3,26 @@ import Box from "../Box/Box"
 import Inner from "../Inner/Inner"
 import { get, getDatabase, onValue, ref, update } from "firebase/database"
 import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { MdBlock } from "react-icons/md"
+import { BiSolidMessageDots } from "react-icons/bi";
+import { setUserMsg } from "../../Slices/userMsgSlice"
+
 
 
 const Friend = () => {
+  const dispatch = useDispatch()
   const db = getDatabase();
   const [ frienDataList, setFrienDataList ] = useState( [] )
   const userInformation = useSelector( state => state.user.userInfo )
+
+  const handleMsgUser = async ( item ) => {
+    dispatch( setUserMsg( item ) )
+
+    localStorage.setItem( 'userMsg', JSON.stringify( item ) ) 
+
+    
+  }
 
   useEffect( () => {
     const userRef = ref( db, 'friendRequests/' );
@@ -61,14 +74,20 @@ const handleBlock = async (item) => {
   }
 };
 
+
+
   return (
     <Box name="Friend">
         {
             frienDataList.map((item, index )=>{
                 return (
                     <Inner key={index} src={ userInformation.photoURL=== item.photoURL  ? item.senderPhotoURL : item.photoURL} name={userInformation.displayName === item.receverName ? item.senderName : item.receverName } dec={userInformation.email === item.receiverId ? item.senderId : item.receiverId}>
+                    <div className="flex items-center">
+                      {/* send messege button */}
+                    <button onClick={ ()=>handleMsgUser(item)} title="send message" className=" text-4xl text-primary pe-1 rounded-lg active:scale-95"><BiSolidMessageDots/></button>
                     {/* user block button */}
-                    <button onClick={()=>handleBlock(item)} className=" bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Block</button>
+                    <button title="block user" onClick={()=>handleBlock(item)} className=" bg-primary text-2xl text-white px-1 py-1 rounded-lg active:scale-95"><MdBlock/></button>
+                    </div>
                     </Inner>
                 )
             })

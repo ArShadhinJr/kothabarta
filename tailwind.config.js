@@ -15,6 +15,10 @@ export default {
         'primary': '#5F35F5',
         'secondary': '#808080',
         'tertiary': '#03014C',
+      }, 
+      spacing: {
+        '1/10': '10%',
+        '8/10': '80%',
       }
     },
   },

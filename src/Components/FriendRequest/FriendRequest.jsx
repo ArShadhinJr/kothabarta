@@ -34,7 +34,9 @@ const FriendRequest = () => {
     snapshot.forEach((user) => {
       if ( user.val().senderId === item.senderId && user.val().receiverId === userInformation.email ) {
         update(ref(db, 'friendRequests/' + user.key ), {
-            status: "accept"
+          status: "accept", 
+          
+
         })
       }
     })

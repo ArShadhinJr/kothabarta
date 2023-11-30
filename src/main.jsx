@@ -15,6 +15,7 @@ import Homee from './Components/Homee/Homee'
 import Comment from './Components/Comment/Comment'
 import Notification from './Components/Notification/Notification'
 import Setting from './Components/Setting/Setting'
+import Messages from './Components/Messages/Messages.jsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/registration" element={<Registration />} />
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/homee" element={<Homee />} />
+          <Route path="/messages" element={<Messages />} />
           <Route path="/comment" element={<Comment />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/setting" element={<Setting />} />

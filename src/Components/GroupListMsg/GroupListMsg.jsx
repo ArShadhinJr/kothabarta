@@ -4,9 +4,9 @@ import Inner from "../Inner/Inner"
 import { getDatabase, ref,   onValue} from "firebase/database";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { groupList } from './../../assets/Data/GroupList';
+// import { groupList } from './../../assets/Data/GroupList';
 
-const GroupList = () => {
+const GroupListMsg = () => {
 
   const userInformation = useSelector( state => state.user.userInfo )
   const db = getDatabase();
@@ -17,21 +17,21 @@ const GroupList = () => {
     const myGroupList = []
     onValue(groupList, (snapshot) => {
       snapshot.forEach(( item ) => {
-        if( item.val().admin !== userInformation.email ) {
-          myGroupList.push( item.val() )
-        }
+        myGroupList.push( item.val() )
       } )
       setGroupList(myGroupList)
     } );
   })
 
   return (
-    <Box name="Group List">
+    <Box name="Group List" button={<button className="bg-white text-primary border border-primary px-5 py-1 rounded-lg active:scale-95">Create Group</button>}>
         {
             groupList.map((item, index)=>{
                 return (
                     <Inner key={index} src={item.groupPhoto} name={item.groupName} dec={item.groupDesc}>
-                      <button className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Join</button>
+                      {
+                        groupList[index].admin === userInformation.email ? <button className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Edit</button> : <button className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Join</button>
+                      }
                     </Inner>
                 )
             })
@@ -40,4 +40,4 @@ const GroupList = () => {
   )
 }
 
-export default GroupList
+export default GroupListMsg

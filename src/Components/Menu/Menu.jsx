@@ -13,14 +13,13 @@ import MenuItem from '../MenuItem/MenuItem'
 import { createRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAuth, signOut, updateProfile } from 'firebase/auth'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import { setUser } from '../../Slices/userSlice'
 import ProfileUploadModal from '../ProfileUploadModal/ProfileUploadModal'
 // upload to firebase with file 
 import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage";
 import "cropperjs/dist/cropper.css";
-import MenuMobile from '../MenuMobile/MenuMobile'
 
 const Menu = () => {
 
@@ -52,6 +51,40 @@ const Menu = () => {
     } )
     
     const [showModal , setShowModal] = useState(false)
+
+    const location = useLocation()
+    useEffect(()=>{
+        const currentPath = location.pathname
+        if(currentPath === '/homee'){
+            setActive( {
+                home: true,
+                comment: false,
+                bell: false,
+                setting: false,
+            } )
+        } else if(currentPath === '/messages'){
+            setActive( {
+                home: false,
+                comment: true,
+                bell: false,
+                setting: false,
+            })
+        } else if(currentPath === '/notifications'){
+            setActive( {
+                home: false,
+                comment: false,
+                bell: true,
+                setting: false,
+            })
+        } else if(currentPath === '/settings'){
+            setActive( {
+                home: false,
+                comment: false,
+                bell: false,
+                setting: true,
+            })
+        }
+    }, [location])
 
     const handlePhoto = (e) => {
     e.preventDefault();
@@ -122,19 +155,18 @@ const Menu = () => {
         }
         <div className="w-[186px] h-full bg-primary py-[38px] text-white rounded-2xl flex flex-col justify-between text-center">
             
-            <div className='relative group'>
+            <div className='relative group' onClick={() => setShowModal(true)} title={user.displayName}>
                 <img src={user?.photoURL ? user.photoURL : profile} width={100} className='rounded-full inline-block'/>
                 
-                <div className='bg-black bg-opacity-25 w-[100px] opacity-0 flex items-center justify-center h-full rounded-full mx-auto absolute top-0 right-1/2 translate-x-1/2 transform transition-all duration-200 group-hover:opacity-100'>
-                    <a href="#"><IoMdCloudUpload onClick={() => setShowModal(true)} className='inline-block text-white' size={24}></IoMdCloudUpload></a>
+                <div className='bg-black bg-opacity-25 w-[100px] opacity-0 flex items-center justify-center h-full rounded-full mx-auto absolute top-0 right-1/2 translate-x-1/2 transform transition-all duration-200 group-hover:opacity-100' >
+                    <a title='Upload Profile' href="#"><IoMdCloudUpload onClick={() => setShowModal(true)} className='inline-block text-white' size={24}></IoMdCloudUpload></a>
                 </div>
-                {window.innerWidth >= 1024 ? <p className='absolute -bottom-8 left-1/2 -translate-x-1/2 w-full' >{user?.displayName}</p>: null}
             </div>
             <div>
                 <ul className='flex flex-col gap-y-[40px]'>
                     <MenuItem to='/homee' onClick={() => setActive({ ...active, home: true , comment: false , bell: false , setting: false })} className={active?.home ? 'activeLink' : 'link'} name="home" onMouseEnter={() => setHover({ ...hover, home: true })} onMouseLeave={() => setHover({ ...hover, home: false })}>{hover.home || active.home ? <AiFillHome className='inline-block' size={46}></AiFillHome> : <AiOutlineHome className='inline-block' size={46}></AiOutlineHome>}</MenuItem>
                     
-                    <MenuItem onClick={() => setActive({ ...active, home: false , comment: true , bell: false , setting: false })} className={active?.comment ? 'activeLink' : 'link'} name="comment" onMouseEnter={()=> setHover({ ...hover, comment: true })} onMouseLeave={()=> setHover({ ...hover, comment: false })}>{hover.comment || active.comment ? <FaCommentDots className='inline-block' size={46}></FaCommentDots> : <FaRegCommentDots className='inline-block' size={46}></FaRegCommentDots>}</MenuItem>
+                    <MenuItem to='/messages' onClick={() => setActive({ ...active, home: false , comment: true , bell: false , setting: false })} className={active?.comment ? 'activeLink' : 'link'} name="comment" onMouseEnter={()=> setHover({ ...hover, comment: true })} onMouseLeave={()=> setHover({ ...hover, comment: false })}>{hover.comment || active.comment ? <FaCommentDots className='inline-block' size={46}></FaCommentDots> : <FaRegCommentDots className='inline-block' size={46}></FaRegCommentDots>}</MenuItem>
                     
                     <MenuItem onClick={() => setActive({ ...active, home: false , comment: false , bell: true , setting: false })} className={active?.bell ? 'activeLink' : 'link'} name="bell" onMouseEnter={()=> setHover({ ...hover, bell: true })} onMouseLeave={()=>{ setHover({ ...hover, bell: false })}}>{hover?.bell || active.bell ? <AiFillBell className='inline-block' size={46}></AiFillBell> : <AiOutlineBell className='inline-block' size={46}></AiOutlineBell> }</MenuItem>
                     

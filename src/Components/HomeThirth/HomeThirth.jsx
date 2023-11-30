@@ -1,11 +1,11 @@
-import Unblock from "../Unblock/Unblock"
+import GroupList from "../GroupList/GroupList"
 import UserList from "../UserList/UserList"
 
 const HomeThirth = () => {
   return (
     <div className="w-full">
         <UserList></UserList>
-        <Unblock></Unblock>
+        <GroupList></GroupList>
     </div>
   )
 }
