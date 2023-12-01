@@ -24,23 +24,28 @@ const Friend = () => {
     
   }
 
-  useEffect( () => {
-    const userRef = ref( db, 'friendRequests/' );
+useEffect(() => {
+  const userRef = ref(db, 'friendRequests/');
 
-    
-    onValue( userRef, ( snapshot ) => {
-      const frienData = []
-      snapshot.forEach( ( friend ) => {
-        if ( (friend.val().status === "accept" && friend.val().receiverId === userInformation.email) || (friend.val().status === "accept" && friend.val().senderId === userInformation.email) ) {
-          
-          frienData.push( friend.val() )
-        }
-      } )
-      setFrienDataList( frienData )
-    
-    } )
+  onValue(userRef, (snapshot) => {
+    const frienData = [];
+    snapshot.forEach((friend) => {
+      if ((friend.val().status === "accept" && friend.val().receiverId === userInformation.email) || (friend.val().status === "accept" && friend.val().senderId === userInformation.email)) {
+        frienData.push(friend.val());
+      }
+    });
+
+    // Use callback form of setFrienDataList to ensure you're working with the latest state
+    setFrienDataList((prevData) => {
+      if (JSON.stringify(prevData) !== JSON.stringify(frienData)) {
+        return frienData;
+      }
+      return prevData;
+    });
+  });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ db, userInformation, frienDataList ] )
+}, [db, userInformation]);
+
   
 const handleBlock = async (item) => {
   const userRef = ref(db, 'friendRequests/');

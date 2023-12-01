@@ -21,7 +21,7 @@ const GroupListMsg = () => {
       } )
       setGroupList(myGroupList)
     } );
-  })
+  }, [])
 
   return (
     <Box name="Group List" button={<button className="bg-white text-primary border border-primary px-5 py-1 rounded-lg active:scale-95">Create Group</button>}>

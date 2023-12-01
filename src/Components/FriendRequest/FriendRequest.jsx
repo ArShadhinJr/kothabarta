@@ -35,7 +35,16 @@ const FriendRequest = () => {
       if ( user.val().senderId === item.senderId && user.val().receiverId === userInformation.email ) {
         update(ref(db, 'friendRequests/' + user.key ), {
           status: "accept", 
-          
+          messages: {
+            message1: {
+              senderId: userInformation.email,
+              message: "Hi, I'm using Chat App",
+            }, 
+            message2: {
+              senderId: item.senderId,
+              message: "Hello, I'm using Chat App",
+            }
+          }
 
         })
       }
