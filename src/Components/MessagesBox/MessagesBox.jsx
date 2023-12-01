@@ -6,9 +6,9 @@ import { MdOutlineInsertPhoto } from "react-icons/md";
 // import { useState } from "react";
 import MsgSenderText from "../MsgSenderText/MsgSenderText";
 import MsgReceiverText from "../MsgReceiverText/MsgReceiverText";
-import MsgReceiverImg from "../MsgReceiverImg/MsgReceiverImg";
-import MsgSenderImg from "../MsgSenderImg/MsgSenderImg";
-import { useEffect, useState } from "react";
+// import MsgReceiverImg from "../MsgReceiverImg/MsgReceiverImg";
+// import MsgSenderImg from "../MsgSenderImg/MsgSenderImg";
+import { useEffect, useRef, useState } from "react";
 import { getDatabase, onValue, ref, push, set } from "firebase/database";
 import { setUserMsg } from "../../Slices/userMsgSlice";
 
@@ -20,11 +20,16 @@ const MessagesBox = () => {
   const db = getDatabase();
   const userInformation = useSelector( state => state.user.userInfo )
   const userMsgItem = useSelector( state => state.userMsg.userMsg )
-  const userMessages = userMsgItem.messages;
+  // const userMessages = userMsgItem.messages;
   const [ message, setMessage ] = useState( "" )
-  const [ msgList, setMsgList ] = useState( [] )
+  const [ msgList, setMsgList ] = useState( [] ); 
+  const messageContainerRef = useRef(null);
   
-
+  const scrollToBottom = () => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollToBottom = messageContainerRef.current.scrollHeight;
+    }
+  };
   
 const handleMessageSend = () => {
   // send message to firebase
@@ -53,25 +58,39 @@ const handleMessageSend = () => {
   });
   
   setMessage( "" );
-  // dispatch( setUserMsg( {
-    
-  // } ) )
-};
+  scrollToBottom();
+  };
+  
+    const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleMessageSend();
+    }
+  };
 
   useEffect(() => {
-    const userRef = ref( db, 'friendRequests/' );
-    const messages = [];
-    onValue(userRef, (snapshot) => {
-      snapshot.forEach(( item ) => {
-        if( item.val().receiverId === userMsgItem.receiverId && item.val().senderId === userMsgItem.senderId && item.val().status === "accept" && item.val().messages ) {
-          messages.push( item.val().messages )
-        }setMsgList(messages)
-      } )
-      
-    } );
-  }, [db, userMsgItem.receiverId, userMsgItem.senderId , msgList]);
+    if (userMsgItem) {
+      const userRef = ref(db, "friendRequests/");
+      const messages = [];
 
+      onValue(userRef, (snapshot) => {
+        snapshot.forEach((item) => {
+          if (
+            item.val().receiverId === userMsgItem.receiverId &&
+            item.val().senderId === userMsgItem.senderId &&
+            item.val().status === "accept" &&
+            item.val().messages
+          ) {
+            messages.push(item.val().messages);
+          }
+        });
 
+        setMsgList(messages);
+
+        // Scroll to the bottom after updating the messages
+        scrollToBottom();
+      });
+    }
+  }, [db, userMsgItem.receiverId, userMsgItem.senderId, msgList]);
 
 
   return (
@@ -96,23 +115,20 @@ const handleMessageSend = () => {
       <hr className="h-px"/>
       <div className="overflow-auto h-8/10 no-scrollbar py-2 ">
         
-        {msgList[0] &&
-          Object.values(msgList[0]).map((item, index) => {
-            return (
-              item.senderId === userInformation.email ? (
-                <MsgSenderText key={index} msg={item.message} />
-              ) : (
-                <MsgReceiverText key={index} msg={item.message} />
-              )
+        { msgList[0] && Object.values(msgList[0]).map((item, index) => {
+            return item.senderId === userInformation.email ? (
+              <MsgSenderText key={index} msg={item.message} />
+            ) : (
+              <MsgReceiverText key={index} msg={item.message} />
             );
-          })
-        }
+          })}
+
       </div>
       <hr className="h-px mb-4"/>
       <div className="h-1/10">
         <div className="flex items-center justify-between">
           <div className="flex items-center justify-between border w-full mr-[23px] rounded-[10px] px-[23px] py-[10px] bg-[#F1F1F1] drop-shadow-lg mb-[20px]">
-            <input value={message} onChange={( e ) => setMessage( e.target.value )} type="text" className="outline-none focus:outline-none w-full py-[10px] bg-transparent"></input>
+            <input value={message} onChange={( e ) => setMessage( e.target.value )} onKeyDown={handleKeyDown} type="text" className="outline-none focus:outline-none w-full py-[10px] bg-transparent"></input>
             <div className="flex items-center">
               
               <span className="text-2xl cursor-pointer pr-[20px]"><BsEmojiLaughing></BsEmojiLaughing></span>
