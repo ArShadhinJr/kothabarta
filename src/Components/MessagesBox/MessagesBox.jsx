@@ -76,7 +76,7 @@ const handleMessageSend = () => {
   });
   
   setMessage( "" );
-  // scrollToBottom();
+  scrollToBottom();
   };
   
     const handleKeyDown = (e) => {
