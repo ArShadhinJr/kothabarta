@@ -59,7 +59,7 @@ const handleUnblock = async (item) => {
   return (
     <Box name="Block Users">
       {blockDataList.map((item, index) => (
-        <Inner key={index} src={item.photoURL} name={item.receverName} dec={item.receiverId}>
+        <Inner classNameImg="md:w-[50px] w-[45px]" key={index} src={item.photoURL} name={item.receverName} dec={item.receiverId}>
           <button onClick={() => handleUnblock(item)} className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Unblock</button>
         </Inner>
       ))}

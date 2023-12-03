@@ -83,7 +83,7 @@ const UserList = () => {
   return (
     <Box name="User List">
       {userData.map((item, index) => (
-        <Inner key={index} src={item.photoURL} name={item.username} dec={item.email}>
+        <Inner key={index} classNameImg="md:w-[50px] w-[45px]" src={item.photoURL} name={item.username} dec={item.email}>
           {friends.some((friend) => friend.receiverId === item.email && friend.status === "pending") ? (
             <button className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Cancel</button>
           ) : friends.some((friend) => friend.senderId === item.email && friend.status === "pending") ? (

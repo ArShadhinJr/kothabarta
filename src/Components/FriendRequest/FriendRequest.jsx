@@ -35,16 +35,7 @@ const FriendRequest = () => {
       if ( user.val().senderId === item.senderId && user.val().receiverId === userInformation.email ) {
         update(ref(db, 'friendRequests/' + user.key ), {
           status: "accept", 
-          messages: {
-            message1: {
-              senderId: userInformation.email,
-              message: "Hi, I'm using Chat App",
-            }, 
-            message2: {
-              senderId: item.senderId,
-              message: "Hello, I'm using Chat App",
-            }
-          }
+          messages: null
 
         })
       }
@@ -59,7 +50,7 @@ const FriendRequest = () => {
         {
             friendRequestData.map((item, index)=>{
                 return (
-                    <Inner key={index} src={item.senderPhotoURL} name={item.senderName} dec={item.senderId}><button onClick={()=>handleAccept(item)} className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Accept</button></Inner>
+                    <Inner key={index}  classNameImg="md:w-[50px] w-[45px]" src={item.senderPhotoURL} name={item.senderName} dec={item.senderId}><button onClick={()=>handleAccept(item)} className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Accept</button></Inner>
                 )
             })
         }

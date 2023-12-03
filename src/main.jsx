@@ -29,7 +29,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/homee" element={<Homee />} />
           <Route path="/messages" element={<Messages />} />
-          <Route path="/comment" element={<Comment />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/setting" element={<Setting />} />
           <Route path="*" element={<Login />} />

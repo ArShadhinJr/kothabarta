@@ -1,35 +1,53 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { BiDotsVerticalRounded } from "react-icons/bi"
 import { FaTelegramPlane } from "react-icons/fa";
 import { BsEmojiLaughing } from "react-icons/bs";
 import { MdOutlineInsertPhoto } from "react-icons/md";
-// import { useState } from "react";
 import MsgSenderText from "../MsgSenderText/MsgSenderText";
 import MsgReceiverText from "../MsgReceiverText/MsgReceiverText";
-// import MsgReceiverImg from "../MsgReceiverImg/MsgReceiverImg";
-// import MsgSenderImg from "../MsgSenderImg/MsgSenderImg";
 import { useEffect, useRef, useState } from "react";
 import { getDatabase, onValue, ref, push } from "firebase/database";
-// import { setUserMsg } from "../../Slices/userMsgSlice";
 
 
 
 
 const MessagesBox = () => {
-  // const dispatch = useDispatch()
   const db = getDatabase();
   const userInformation = useSelector( state => state.user.userInfo )
   const userMsgItem = useSelector( state => state.userMsg.userMsg )
-  // const userMessages = userMsgItem.messages;
   const [ message, setMessage ] = useState( "" )
   const [ msgList, setMsgList ] = useState( [] ); 
-  const messageContainerRef = useRef(null);
+  const messageContainerRef = useRef( null );
+  const [userScrolled, setUserScrolled] = useState(false);
   
   const scrollToBottom = () => {
-    if (messageContainerRef.current) {
-      messageContainerRef.current.scrollToBottom = messageContainerRef.current.scrollHeight;
+    if (messageContainerRef.current && !userScrolled) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
     }
   };
+
+    const handleScroll = () => {
+    if (
+      messageContainerRef.current.scrollTop + messageContainerRef.current.clientHeight <
+      messageContainerRef.current.scrollHeight
+    ) {
+      setUserScrolled(true);
+    } else {
+      setUserScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (messageContainerRef.current) {
+        messageContainerRef.current.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [messageContainerRef]);
   
 const handleMessageSend = () => {
   // send message to firebase
@@ -58,7 +76,7 @@ const handleMessageSend = () => {
   });
   
   setMessage( "" );
-  scrollToBottom();
+  // scrollToBottom();
   };
   
     const handleKeyDown = (e) => {
@@ -90,11 +108,11 @@ const handleMessageSend = () => {
         scrollToBottom();
       });
     }
-  }, [db, userMsgItem.receiverId, userMsgItem.senderId, msgList]);
+  }, [db, userMsgItem.receiverId, userMsgItem.senderId, msgList, userScrolled]);
 
 
   return (
-    <div className="md:w-8/12 md:h-full overflow-hidden bg-white border rounded-[20px] px-[40px] py-[24px] drop-shadow-lg">
+    <div className="md:w-8/12 md:h-full overflow-hidden bg-white border rounded-[20px] px-[40px] py-[24px] drop-shadow-lg relative">
 
       <div className="h-1/10"><div className="flex items-center justify-between pr-4 py-3 last:pb-0 border-b-gray-300 border border-x-0 border-t-0 last:border-none" >
         <div className="flex items-center gap-x-[20px]">
@@ -113,7 +131,7 @@ const handleMessageSend = () => {
       </div>
       </div>
       <hr className="h-px"/>
-      <div className="overflow-auto h-8/10 no-scrollbar py-2 ">
+      <div ref={messageContainerRef} className="overflow-auto h-8/10 no-scrollbar py-2">
         
         { msgList[0] && Object.values(msgList[0]).map((item, index) => {
             return item.senderId === userInformation.email ? (
@@ -122,7 +140,7 @@ const handleMessageSend = () => {
               <MsgReceiverText key={index} msg={item.message} />
             );
           })}
-
+        
       </div>
       <hr className="h-px mb-4"/>
       <div className="h-1/10">

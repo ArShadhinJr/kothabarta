@@ -86,7 +86,7 @@ const handleBlock = async (item) => {
         {
             frienDataList.map((item, index )=>{
                 return (
-                    <Inner key={index} src={ userInformation.photoURL=== item.photoURL  ? item.senderPhotoURL : item.photoURL} name={userInformation.displayName === item.receverName ? item.senderName : item.receverName } dec={userInformation.email === item.receiverId ? item.senderId : item.receiverId}>
+                    <Inner classNameImg="md:w-[50px] w-[45px]" key={index} src={ userInformation.photoURL=== item.photoURL  ? item.senderPhotoURL : item.photoURL} name={userInformation.displayName === item.receverName ? item.senderName : item.receverName } dec={userInformation.email === item.receiverId ? item.senderId : item.receiverId}>
                     <div className="flex items-center">
                       {/* send messege button */}
                     <button onClick={ ()=>handleMsgUser(item)} title="send message" className=" text-4xl text-primary pe-1 rounded-lg active:scale-95"><BiSolidMessageDots/></button>

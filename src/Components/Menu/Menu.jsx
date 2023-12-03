@@ -69,14 +69,14 @@ const Menu = () => {
                 bell: false,
                 setting: false,
             })
-        } else if(currentPath === '/notifications'){
+        } else if(currentPath === '/notification'){
             setActive( {
                 home: false,
                 comment: false,
                 bell: true,
                 setting: false,
             })
-        } else if(currentPath === '/settings'){
+        } else if(currentPath === '/setting'){
             setActive( {
                 home: false,
                 comment: false,
@@ -168,9 +168,9 @@ const Menu = () => {
                     
                     <MenuItem to='/messages' onClick={() => setActive({ ...active, home: false , comment: true , bell: false , setting: false })} className={active?.comment ? 'activeLink' : 'link'} name="comment" onMouseEnter={()=> setHover({ ...hover, comment: true })} onMouseLeave={()=> setHover({ ...hover, comment: false })}>{hover.comment || active.comment ? <FaCommentDots className='inline-block' size={46}></FaCommentDots> : <FaRegCommentDots className='inline-block' size={46}></FaRegCommentDots>}</MenuItem>
                     
-                    <MenuItem onClick={() => setActive({ ...active, home: false , comment: false , bell: true , setting: false })} className={active?.bell ? 'activeLink' : 'link'} name="bell" onMouseEnter={()=> setHover({ ...hover, bell: true })} onMouseLeave={()=>{ setHover({ ...hover, bell: false })}}>{hover?.bell || active.bell ? <AiFillBell className='inline-block' size={46}></AiFillBell> : <AiOutlineBell className='inline-block' size={46}></AiOutlineBell> }</MenuItem>
+                    <MenuItem to='/notification' onClick={() => setActive({ ...active, home: false , comment: false , bell: true , setting: false })} className={active?.bell ? 'activeLink' : 'link'} name="bell" onMouseEnter={()=> setHover({ ...hover, bell: true })} onMouseLeave={()=>{ setHover({ ...hover, bell: false })}}>{hover?.bell || active.bell ? <AiFillBell className='inline-block' size={46}></AiFillBell> : <AiOutlineBell className='inline-block' size={46}></AiOutlineBell> }</MenuItem>
                     
-                    <MenuItem onClick={() => setActive({ ...active, home: false , comment: false , bell: false , setting: true })} className={active?.setting ? 'activeLink' : 'link'} name="setting" onMouseEnter={()=>setHover({ ...hover, setting: true })} onMouseLeave={()=>{setHover({ ...hover, setting: false }) }}>{hover?.setting || active.setting ? <AiFillSetting className='inline-block' size={46}></AiFillSetting> : <AiOutlineSetting className='inline-block' size={46}></AiOutlineSetting> }</MenuItem>
+                    <MenuItem to='/setting' onClick={() => setActive({ ...active, home: false , comment: false , bell: false , setting: true })} className={active?.setting ? 'activeLink' : 'link'} name="setting" onMouseEnter={()=>setHover({ ...hover, setting: true })} onMouseLeave={()=>{setHover({ ...hover, setting: false }) }}>{hover?.setting || active.setting ? <AiFillSetting className='inline-block' size={46}></AiFillSetting> : <AiOutlineSetting className='inline-block' size={46}></AiOutlineSetting> }</MenuItem>
                     <Outlet />
                 </ul>
             </div>

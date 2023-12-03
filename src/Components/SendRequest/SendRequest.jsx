@@ -31,7 +31,7 @@ const SendRequest = () => {
         {
             requestList.map((item, index) => {
                 return (
-                    <Inner key={index} src={item.photoURL} name={item.receverName} dec={item.receiverId}><button  className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Cencle</button></Inner>
+                    <Inner classNameImg="md:w-[50px] w-[45px]" key={index} src={item.photoURL} name={item.receverName} dec={item.receiverId}><button  className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Cencle</button></Inner>
                 )
             })
         }

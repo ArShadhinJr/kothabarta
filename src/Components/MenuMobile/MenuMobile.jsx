@@ -1,8 +1,8 @@
-import { createRef, useState } from "react"
+import { createRef, useState , useEffect } from "react"
 import MenuItem from "../MenuItem/MenuItem"
 import { AiFillBell, AiFillHome, AiFillSetting, AiOutlineBell, AiOutlineSetting } from 'react-icons/ai'
 import { AiOutlineHome } from 'react-icons/ai'
-import { Outlet } from "react-router-dom"
+import { Outlet, useLocation } from "react-router-dom"
 import { FaCommentDots, FaRegCommentDots } from "react-icons/fa"
 import logo from '../../assets/images/logo-dark.png'
 import profile from '../../assets/images/profile.jpg'
@@ -57,6 +57,40 @@ const MenuMobile = () => {
     reader.readAsDataURL(files[0]);
     };
 
+    const location = useLocation()
+    useEffect(()=>{
+        const currentPath = location.pathname
+        if(currentPath === '/homee'){
+            setActive( {
+                home: true,
+                comment: false,
+                bell: false,
+                setting: false,
+            } )
+        } else if(currentPath === '/messages'){
+            setActive( {
+                home: false,
+                comment: true,
+                bell: false,
+                setting: false,
+            })
+        } else if(currentPath === '/notification'){
+            setActive( {
+                home: false,
+                comment: false,
+                bell: true,
+                setting: false,
+            })
+        } else if(currentPath === '/setting'){
+            setActive( {
+                home: false,
+                comment: false,
+                bell: false,
+                setting: true,
+            })
+        }
+    }, [location])
+
     const getCropData = () => {
         if ( typeof cropperRef.current?.cropper !== "undefined" ) {
             setCropData( cropperRef.current?.cropper.getCroppedCanvas().toDataURL() );
@@ -103,11 +137,11 @@ const MenuMobile = () => {
             <ul className='flex items-center justify-around'>
                 <MenuItem to='/homee' onClick={() => setActive({ ...active, home: true , comment: false , bell: false , setting: false })} className={active?.home ? 'moblieActiveLink' : 'moblieLink'} name="home" onMouseEnter={() => setHover({ ...hover, home: true })} onMouseLeave={() => setHover({ ...hover, home: false })}>{hover.home || active.home ? <AiFillHome className='inline-block' size={30}></AiFillHome> : <AiOutlineHome className='inline-block' size={30}></AiOutlineHome>}</MenuItem>
                 
-                <MenuItem onClick={() => setActive({ ...active, home: false , comment: true , bell: false , setting: false })} className={active?.comment ? 'moblieActiveLink' : 'moblieLink'} name="comment" onMouseEnter={()=> setHover({ ...hover, comment: true })} onMouseLeave={()=> setHover({ ...hover, comment: false })}>{hover.comment || active.comment ? <FaCommentDots className='inline-block' size={30}></FaCommentDots> : <FaRegCommentDots className='inline-block' size={30}></FaRegCommentDots>}</MenuItem>
+                <MenuItem to='/messages' onClick={() => setActive({ ...active, home: false , comment: true , bell: false , setting: false })} className={active?.comment ? 'moblieActiveLink' : 'moblieLink'} name="comment" onMouseEnter={()=> setHover({ ...hover, comment: true })} onMouseLeave={()=> setHover({ ...hover, comment: false })}>{hover.comment || active.comment ? <FaCommentDots className='inline-block' size={30}></FaCommentDots> : <FaRegCommentDots className='inline-block' size={30}></FaRegCommentDots>}</MenuItem>
                     
-                <MenuItem onClick={() => setActive({ ...active, home: false , comment: false , bell: true , setting: false })} className={active?.bell ? 'moblieActiveLink' : 'moblieLink'} name="bell" onMouseEnter={()=> setHover({ ...hover, bell: true })} onMouseLeave={()=>{ setHover({ ...hover, bell: false })}}>{hover?.bell || active.bell ? <AiFillBell className='inline-block' size={30}></AiFillBell> : <AiOutlineBell className='inline-block' size={30}></AiOutlineBell> }</MenuItem>
+                <MenuItem to='/notification' onClick={() => setActive({ ...active, home: false , comment: false , bell: true , setting: false })} className={active?.bell ? 'moblieActiveLink' : 'moblieLink'} name="bell" onMouseEnter={()=> setHover({ ...hover, bell: true })} onMouseLeave={()=>{ setHover({ ...hover, bell: false })}}>{hover?.bell || active.bell ? <AiFillBell className='inline-block' size={30}></AiFillBell> : <AiOutlineBell className='inline-block' size={30}></AiOutlineBell> }</MenuItem>
                     
-                <MenuItem onClick={() => setActive({ ...active, home: false , comment: false , bell: false , setting: true })} className={active?.setting ? 'moblieActiveLink' : 'moblieLink'} name="setting" onMouseEnter={()=>setHover({ ...hover, setting: true })} onMouseLeave={()=>{setHover({ ...hover, setting: false }) }}>{hover?.setting || active.setting ? <AiFillSetting className='inline-block' size={30}></AiFillSetting> : <AiOutlineSetting className='inline-block' size={30}></AiOutlineSetting> }</MenuItem>
+                <MenuItem to='/setting' onClick={() => setActive({ ...active, home: false , comment: false , bell: false , setting: true })} className={active?.setting ? 'moblieActiveLink' : 'moblieLink'} name="setting" onMouseEnter={()=>setHover({ ...hover, setting: true })} onMouseLeave={()=>{setHover({ ...hover, setting: false }) }}>{hover?.setting || active.setting ? <AiFillSetting className='inline-block' size={30}></AiFillSetting> : <AiOutlineSetting className='inline-block' size={30}></AiOutlineSetting> }</MenuItem>
                 <Outlet />
             </ul>
         </div>

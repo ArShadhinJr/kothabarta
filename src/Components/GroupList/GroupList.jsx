@@ -30,7 +30,7 @@ const GroupList = () => {
         {
             groupList.map((item, index)=>{
                 return (
-                    <Inner key={index} src={item.groupPhoto} name={item.groupName} dec={item.groupDesc}>
+                    <Inner key={index} classNameImg="md:w-[50px] w-[45px]" src={item.groupPhoto} name={item.groupName} dec={item.groupDesc}>
                       <button className="bg-primary text-white px-5 py-1 rounded-lg active:scale-95">Join</button>
                     </Inner>
                 )
