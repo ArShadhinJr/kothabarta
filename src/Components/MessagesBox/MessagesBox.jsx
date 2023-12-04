@@ -7,6 +7,7 @@ import MsgSenderText from "../MsgSenderText/MsgSenderText";
 import MsgReceiverText from "../MsgReceiverText/MsgReceiverText";
 import { useEffect, useRef, useState } from "react";
 import { getDatabase, onValue, ref, push } from "firebase/database";
+import { IoIosArrowBack } from "react-icons/io";
 
 const MessagesBox = () => {
   const db = getDatabase();
@@ -114,7 +115,11 @@ const MessagesBox = () => {
     <div className="md:w-8/12 w-full md:h-full h-screen overflow-hidden bg-white border rounded-[20px] md:px-[40px] px-[10px] md:py-[24px] drop-shadow-lg relative">
       <div className="md:h-1/10 h-1/12 flex items-center justify-between md:pr-4 px-2 py-3">
         <div className="flex items-center gap-x-[20px]">
-            <div className="relative">
+          {window.innerWidth < 768 ? (
+            <IoIosArrowBack onClick={() => window.history.back()}>  </IoIosArrowBack>
+          ) : null}
+          <div className="relative">
+
               <img
                 src={
                   userMsgItem.senderPhotoURL === userInformation.photoURL
