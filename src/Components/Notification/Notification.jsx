@@ -13,7 +13,9 @@ const Notification = () => {
       }
       <div className="w-full md:flex md:ml-[43px] md:gap-x-[22px]">
         <div className="md:w-full md:h-full">
-          <Search className="w-full md:mb-[20px] mb-1"></Search>
+          {
+            window.innerWidth > 768 ? <Search className="w-full md:mb-[20px] mb-1"></Search> : null
+          }
           <NotificationBox></NotificationBox>
         </div>
         

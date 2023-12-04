@@ -3,7 +3,7 @@ import Inner from '../Inner/Inner'
 
 const NotificationBox = () => {
   return (
-    <div className="md:w-full md:h-9/10 overflow-hidden bg-white border rounded-[20px] px-[40px] py-[10px] drop-shadow-lg">
+    <div className="md:w-full md:h-9/10 h-screen md:my-0 my-[54px] overflow-hidden bg-white border rounded-[20px] px-[40px] py-[10px] drop-shadow-lg">
 
       <div className="h-1/12 flex items-center">
         <h3 className='text-2xl font-bold text-black'>Notification</h3>
