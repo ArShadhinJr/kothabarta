@@ -111,10 +111,9 @@ const MessagesBox = () => {
   }
 
   return (
-    <div className="md:w-8/12 w-full h-full overflow-hidden bg-white border rounded-[20px] md:px-[40px] px-[10px] md:py-[24px] drop-shadow-lg relative">
-      <div className="h-1/10">
-        <div className="flex items-center justify-between pr-4 py-3 last:pb-0 border-b-gray-300 border border-x-0 border-t-0 last:border-none">
-          <div className="flex items-center gap-x-[20px]">
+    <div className="md:w-8/12 w-full md:h-full h-screen overflow-hidden bg-white border rounded-[20px] md:px-[40px] px-[10px] md:py-[24px] drop-shadow-lg relative">
+      <div className="md:h-1/10 h-1/12 flex items-center justify-between md:pr-4 px-2 py-3">
+        <div className="flex items-center gap-x-[20px]">
             <div className="relative">
               <img
                 src={
@@ -142,10 +141,9 @@ const MessagesBox = () => {
           <div>
             <BiDotsVerticalRounded className="md:text-2xl sm:text-xl text-lg text-primary"></BiDotsVerticalRounded>
           </div>
-        </div>
       </div>
       <hr className="h-px" />
-      <div ref={messageContainerRef} className="overflow-auto h-8/10 no-scrollbar py-2">
+      <div ref={messageContainerRef} className="overflow-auto md:h-8/10 h-10/12 no-scrollbar py-2">
         {msgList[0] &&
           Object.values(msgList[0]).map((item, index) =>
             item.senderId === userInformation.email ? (
@@ -155,8 +153,8 @@ const MessagesBox = () => {
             )
           )}
       </div>
-      <hr className="h-px mb-4" />
-      <div className="h-1/10">
+      <hr className="h-px md:mb-4 mb-2" />
+      <div className="md:h-1/10 h-1/12">
         <div className="flex items-center justify-between">
           <div className="flex items-center justify-between border w-full mr-[23px] rounded-[10px] px-[23px] py-[10px] bg-[#F1F1F1] drop-shadow-lg mb-[20px]">
             <input
