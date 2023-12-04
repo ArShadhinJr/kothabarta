@@ -117,7 +117,7 @@ const MenuMobile = () => {
     console.log(user.photoURL)
   return (
     <div>
-        <div className="fixed top-0 right-0 bg-primary p-4 z-10 w-full text-white flex items-center justify-between">
+        <div className="fixed top-0 right-0 bg-primary py-2 px-4 z-10 w-full text-white flex items-center justify-between">
             {
             showModal ? <ProfileUploadModal image={image} cropperRef={cropperRef} onChange={handlePhoto} onPhotoUpload={getCropData} onClick={() => setShowModal(false)}></ProfileUploadModal> :  null
             }
