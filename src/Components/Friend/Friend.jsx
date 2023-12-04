@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { MdBlock } from "react-icons/md"
 import { BiSolidMessageDots } from "react-icons/bi";
 import { setUserMsg } from "../../Slices/userMsgSlice"
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -15,14 +16,24 @@ const Friend = () => {
   const db = getDatabase();
   const [ frienDataList, setFrienDataList ] = useState( [] )
   const userInformation = useSelector( state => state.user.userInfo )
+  const navigate = useNavigate();
+  const [width , setWidth] = useState(window.innerWidth)
 
-  const handleMsgUser = async ( item ) => {
+  const handleMsgUser = ( item ) => {
     dispatch( setUserMsg( item ) )
-
     localStorage.setItem( 'userMsg', JSON.stringify( item ) ) 
-
-    
+    if(width <= 768) {
+      navigate( '/chat' )
+    } else {
+      navigate( '/messages. ' )
+    }
   }
+
+  // responsive for chat
+  useEffect( () => {
+    setWidth(window.innerWidth)
+    
+  }, [])
 
 useEffect(() => {
   const userRef = ref(db, 'friendRequests/');
@@ -79,6 +90,12 @@ const handleBlock = async (item) => {
   }
 };
 
+const confirmBlockFriend = (item) => {
+  if (window.confirm("Are you sure you want to block this user?")) {
+    handleBlock(item);
+  }
+}
+
 
 
   return (
@@ -91,7 +108,7 @@ const handleBlock = async (item) => {
                       {/* send messege button */}
                     <button onClick={ ()=>handleMsgUser(item)} title="send message" className=" text-4xl text-primary pe-1 rounded-lg active:scale-95"><BiSolidMessageDots/></button>
                     {/* user block button */}
-                    <button title="block user" onClick={()=>handleBlock(item)} className=" bg-primary text-2xl text-white px-1 py-1 rounded-lg active:scale-95"><MdBlock/></button>
+                    <button title="block user" onClick={()=>confirmBlockFriend(item)} className=" bg-primary text-2xl text-white px-1 py-1 rounded-lg active:scale-95"><MdBlock/></button>
                     </div>
                     </Inner>
                 )

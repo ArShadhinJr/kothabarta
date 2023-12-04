@@ -12,10 +12,10 @@ import ForgotPassword from './Components/ForgotPassword/ForgotPassword'
 import { Provider } from 'react-redux'
 import { store } from './Redux/store'
 import Homee from './Components/Homee/Homee'
-import Comment from './Components/Comment/Comment'
 import Notification from './Components/Notification/Notification'
 import Setting from './Components/Setting/Setting'
 import Messages from './Components/Messages/Messages.jsx'
+import Chat from './Components/Chat/Chat.jsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -31,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/messages" element={<Messages />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/setting" element={<Setting />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<Login />} />
         </Routes>
       </BrowserRouter>

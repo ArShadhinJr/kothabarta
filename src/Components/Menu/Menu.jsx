@@ -44,7 +44,7 @@ const Menu = () => {
     } )
 
     const [active , setActive ] = useState( {
-        home: true,
+        home: false,
         comment: false,
         bell: false,
         setting: false,

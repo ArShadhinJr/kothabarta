@@ -17,7 +17,7 @@ const Messages = () => {
           <MessagesFirst></MessagesFirst>
         </div>
         {
-          userMsgItem ? <MessagesBox></MessagesBox> : <MessagesNull></MessagesNull>
+          window.innerWidth > 768 ?  <MessagesBox></MessagesBox> :  null
         }
       </div>
     </div>
