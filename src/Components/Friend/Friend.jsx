@@ -25,7 +25,7 @@ const Friend = () => {
     if(width <= 768) {
       navigate( '/chat' )
     } else {
-      navigate( '/messages. ' )
+      navigate( '/messages ' )
     }
   }
 
